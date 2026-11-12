@@ -10,6 +10,8 @@ An artisan-as-brand marketplace for Indian craft, starting with Bihar. WordPress
 - `docs/` SRS, block architecture, spike results and the go-live checklist.
 
 ## Deploying
+Hostinger pulls one branch per plugin (`deploy/pd-marketplace`, `deploy/pd-blocks`) built by `tools/build-deploy-branches.sh --push`; each holds only that plugin's files. Set each Hostinger entry's folder to `public_html/wp-content/plugins/<plugin>`, never `public_html`.
+
 Only `wp-content/plugins/pd-*` and `wp-content/themes/pd-theme` go to the server. Never sync the whole `wp-content`. See `docs/GO-LIVE.md`.
 
 ## Checks
