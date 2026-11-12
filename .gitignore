@@ -1,0 +1,9 @@
+# Track only our own code. Everything else in wp-content lives on the server only.
+/*
+!/.gitignore
+!/plugins/
+/plugins/*
+!/plugins/pd-*/
+!/themes/
+/themes/*
+!/themes/pd-*/
