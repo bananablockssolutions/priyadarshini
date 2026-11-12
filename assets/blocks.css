@@ -1,0 +1,9 @@
+/* Minimal structure only. Colour, type and spacing come from pd-theme tokens (theme.json) when it exists. */
+.pd-artisan-card{display:grid;gap:.25rem;padding:1rem;border:2px solid var(--wp--preset--color--kajal,#2a1e17);background:var(--wp--preset--color--card,#fffaf0)}
+.pd-artisan-card__link{color:inherit;text-decoration:none;display:grid}
+.pd-artisan-card__link:focus-visible{outline:3px solid var(--wp--preset--color--kajal,#2a1e17);outline-offset:3px}
+.pd-artisan-card__name{font-weight:700;font-size:1.25rem}
+.pd-artisan-card__name-hi{font-size:1rem}
+.pd-artisan-card p{margin:0}
+.pd-newtag{border:1.5px solid currentColor;padding:0 .4em;font-size:.85em}
+.pd-follow{margin:0}
