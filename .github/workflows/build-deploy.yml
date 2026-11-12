@@ -1,0 +1,27 @@
+name: build-deploy-branches
+# Rebuilds deploy/* branches from main. Hostinger deploys are still a manual click in hPanel.
+on:
+  push:
+    branches: [ main ]
+permissions:
+  contents: write
+concurrency:
+  group: build-deploy
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Check before building
+        run: |
+          find wp-content -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+          php dev/tests/allocator_pure.php
+      - name: Build and push deploy branches
+        env:
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: actions@users.noreply.github.com
+        run: tools/build-deploy-branches.sh --push
