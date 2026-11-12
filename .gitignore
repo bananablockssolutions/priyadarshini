@@ -1,0 +1,21 @@
+# secrets and keys
+*.pem
+*.key
+id_*
+.env
+.env.*
+wp-config.php
+# logs and test output
+*.log
+debug.log
+dev/results/
+# build output and archives
+dist/
+*.zip
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/
+vendor/

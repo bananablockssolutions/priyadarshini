@@ -1,0 +1,30 @@
+name: checks
+on:
+  push:
+  pull_request:
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.1', '8.3' ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+      - name: PHP syntax
+        run: find wp-content dev -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+      - name: Allocation arithmetic (no WordPress needed)
+        run: php dev/tests/allocator_pure.php
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: JavaScript syntax
+        run: |
+          for f in $(find wp-content -name '*.js'); do cp "$f" /tmp/check.mjs && node --check /tmp/check.mjs; done
+          for f in $(find wp-content -name '*.json'); do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))"; done

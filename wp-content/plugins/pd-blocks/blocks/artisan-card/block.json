@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/artisan-card",
+	"title": "Artisan card",
+	"category": "widgets",
+	"description": "One artisan in a directory grid. Place inside a Query Loop over the Artisan post type.",
+	"attributes": { "focusContext": { "type": "string", "default": "dir" } },
+	"usesContext": [ "postId", "postType", "queryId" ],
+	"supports": { "html": false, "interactivity": true, "align": false },
+	"textdomain": "pd-blocks",
+	"render": "file:./render.php"
+}
