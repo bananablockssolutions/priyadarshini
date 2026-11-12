@@ -28,4 +28,38 @@ for src in wp-content/plugins/pd-* wp-content/themes/pd-*; do
   )
   rm -rf "$tmp"
 done
+# One extra branch for the "whole wp-content" mode: wp-content layout, with a whitelist .gitignore so that
+# uploads (the media library), other plugins and themes can never become tracked, even by accident.
+tmp="$(mktemp -d)"
+mkdir -p "$tmp/plugins" "$tmp/themes"
+for src in wp-content/plugins/pd-*; do [ -d "$src" ] && cp -R --no-preserve=ownership "$src" "$tmp/plugins/"; done
+for src in wp-content/themes/pd-*; do [ -d "$src" ] && cp -R --no-preserve=ownership "$src" "$tmp/themes/"; done
+cat > "$tmp/.gitignore" <<'IGN'
+# Track only our own code. Everything else in wp-content lives on the server only.
+/*
+!/.gitignore
+!/plugins/
+/plugins/*
+!/plugins/pd-*/
+!/themes/
+/themes/*
+!/themes/pd-*/
+IGN
+find "$tmp" \( -name '.git*' ! -name '.gitignore' -o -name 'tests' -o -name '*.log' -o -name '.DS_Store' \) -prune -exec rm -rf {} +
+(
+  cd "$tmp"
+  git init -q -b deploy/wp-content
+  git config user.name "${GIT_AUTHOR_NAME:-Claude Code}"
+  git config user.email "${GIT_AUTHOR_EMAIL:-noreply@anthropic.com}"
+  mkdir -p uploads && echo x > uploads/never-tracked.jpg   # proof the whitelist works: must NOT be added
+  git add -A
+  git commit -q -m "Deploy build of wp-content (pd-* only) from main@${src_sha}"
+  if git ls-files | grep -q '^uploads/'; then echo "ERROR: uploads would be tracked"; exit 1; fi
+  echo "deploy/wp-content: $(git ls-files | wc -l) files tracked, uploads excluded"
+  if [ "${1:-}" = "--push" ]; then
+    git remote add origin "$(git -C "$repo_root" remote get-url origin)"
+    git push --force origin deploy/wp-content
+  fi
+)
+rm -rf "$tmp"
 [ "${1:-}" = "--push" ] || echo "(dry run: nothing pushed; use --push)"

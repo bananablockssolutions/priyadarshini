@@ -10,9 +10,7 @@ An artisan-as-brand marketplace for Indian craft, starting with Bihar. WordPress
 - `docs/` SRS, block architecture, spike results and the go-live checklist.
 
 ## Deploying
-Hostinger pulls one branch per plugin (`deploy/pd-marketplace`, `deploy/pd-blocks`) built by `tools/build-deploy-branches.sh --push`; each holds only that plugin's files. Set each Hostinger entry's folder to `public_html/wp-content/plugins/<plugin>`, never `public_html`.
-
-Only `wp-content/plugins/pd-*` and `wp-content/themes/pd-theme` go to the server. Never sync the whole `wp-content`. See `docs/GO-LIVE.md`.
+`tools/build-deploy-branches.sh --push` builds `deploy/<name>` branches (one per plugin or theme, only that code at the branch root) and `deploy/wp-content`: a wp-content layout holding only `plugins/pd-*` and `themes/pd-*`, plus a whitelist `.gitignore`, so uploads (the media library), WooCommerce and other plugins are never tracked. Point Hostinger at `public_html/wp-content` for `deploy/wp-content`, or at `public_html/wp-content/plugins/<plugin>` for a per-plugin branch. Never point it at `public_html`. Trial in an empty scratch folder first: it is not yet known whether Hostinger's pull deletes untracked files.
 
 ## Checks
 `php dev/tests/allocator_pure.php` needs no WordPress. The other tests in `dev/tests` need a throwaway WordPress with `PD_TESTS_WIPE=yes`.
