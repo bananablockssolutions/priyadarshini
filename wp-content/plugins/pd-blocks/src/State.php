@@ -20,14 +20,28 @@ final class State {
 	private static array $seeded = array();
 	private static array $log    = array();
 
+	/** Store modules: id => [file, dependencies]. Each is the single owner of its keys (BLOCKS.md 9.1). */
+	private const MODULES = array(
+		'pd/artisan-store'    => array( 'artisan-store.js', array() ),
+		'pd/navigation-store' => array( 'navigation-store.js', array( array( 'id' => '@wordpress/interactivity-router', 'import' => 'dynamic' ) ) ),
+		'pd/shell-store'      => array( 'shell-store.js', array() ),
+		'pd/bag-store'        => array( 'bag-store.js', array() ),
+	);
+
 	public static function boot(): void {
 		add_action( 'init', static function () {
-			wp_register_script_module(
-				'pd/artisan-store',
-				plugins_url( 'assets/artisan-store.js', DIR . '/pd-blocks.php' ),
-				array( array( 'id' => '@wordpress/interactivity', 'import' => 'dynamic' ) ),
-				VERSION
-			);
+			foreach ( self::MODULES as $id => [ $file, $deps ] ) {
+				wp_register_script_module(
+					$id,
+					plugins_url( 'assets/' . $file, DIR . '/pd-blocks.php' ),
+					array_merge( array( '@wordpress/interactivity' ), $deps ),
+					VERSION
+				);
+				// WordPress 6.9+: lets the Interactivity Router load this module when a routed page first needs it.
+				if ( method_exists( wp_interactivity(), 'add_client_navigation_support_to_script_module' ) ) {
+					wp_interactivity()->add_client_navigation_support_to_script_module( $id );
+				}
+			}
 		} );
 	}
 
@@ -37,9 +51,99 @@ final class State {
 			case 'pd/artisan':
 				self::artisan( array_map( 'intval', (array) ( $args['ids'] ?? array() ) ) );
 				break;
+			case 'pd/navigation':
+				self::once( $ns, 'pd/navigation-store', array( self::class, 'navigation' ) );
+				break;
+			case 'pd/shell':
+				self::once( $ns, 'pd/shell-store', array( self::class, 'shell' ) );
+				break;
+			case 'pd/bag':
+				self::once( $ns, 'pd/bag-store', array( self::class, 'bag' ) );
+				break;
 			default:
 				_doing_it_wrong( __METHOD__, esc_html( "Unknown store $ns" ), VERSION );
 		}
+	}
+
+	private static function once( string $ns, string $module, callable $seed ): void {
+		wp_enqueue_script_module( $module );
+		if ( empty( self::$seeded[ $ns ]['_base'] ) ) {
+			self::$seeded[ $ns ]['_base'] = true;
+			self::seed( $ns, $seed() );
+		}
+	}
+
+	/** pd/navigation: route lifecycle, focus, scroll and announcements. url is reseeded on every route. */
+	private static function navigation(): array {
+		$url      = home_url( add_query_arg( array() ) );
+		$excluded = array( wp_parse_url( admin_url(), PHP_URL_PATH ), wp_parse_url( wp_login_url(), PHP_URL_PATH ), '/wp-json/', '/feed/' );
+		if ( function_exists( 'wc_get_page_permalink' ) ) {
+			foreach ( array( 'cart', 'checkout', 'myaccount' ) as $page ) {
+				$path = wp_parse_url( wc_get_page_permalink( $page ), PHP_URL_PATH );
+				if ( $path && '/' !== $path ) {
+					$excluded[] = $path;
+				}
+			}
+		}
+		return array(
+			'url'            => $url,
+			'excluded'       => array_values( array_unique( array_filter( $excluded ) ) ),
+			'progressVisible' => false,
+			'polite'         => '',
+			'assertive'      => '',
+			// Derived on the server too, so the first paint already marks the current link (see tests/blocks1.php lesson).
+			'isCurrent'      => static function () use ( $url ): bool {
+				$c = wp_interactivity_get_context();
+				return self::same_section( (string) ( $c['href'] ?? '' ), $url );
+			},
+			'ariaCurrent'    => static function () use ( $url ): ?string {
+				$c = wp_interactivity_get_context();
+				return self::same_section( (string) ( $c['href'] ?? '' ), $url ) ? 'page' : null;
+			},
+		);
+	}
+
+	/** A nav link is current when the page is that section or inside it ("/artisans/" is current on "/artisans/?page=2"). */
+	public static function same_section( string $href, string $url ): bool {
+		$a = (string) wp_parse_url( $href, PHP_URL_PATH );
+		$b = (string) wp_parse_url( $url, PHP_URL_PATH );
+		if ( '' === $a || '/' === $a ) {
+			return '/' === $b || '' === $b;
+		}
+		return 0 === strpos( trailingslashit( $b ), trailingslashit( $a ) );
+	}
+
+	/** pd/shell: menu, search and shell presentation. UI keys reset on navigation. */
+	private static function shell(): array {
+		return array(
+			'menuOpen'   => false,
+			'searchOpen' => false,
+			'hidden'     => false,
+			'signedIn'   => is_user_logged_in(),
+			'menuLabel'  => static function (): string {
+				return ! empty( wp_interactivity_state( 'pd/shell' )['menuOpen'] ) ? 'Close' : 'Menu';
+			},
+		);
+	}
+
+	/** pd/bag: a thin mirror of the WooCommerce cart. Count is reseeded from the server on every route. */
+	private static function bag(): array {
+		$count = 0;
+		if ( function_exists( 'WC' ) && WC()->cart ) {
+			$count = (int) WC()->cart->get_cart_contents_count();
+		}
+		return array(
+			'count'      => $count,
+			'cartUrl'    => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
+			'storeApi'   => esc_url_raw( rest_url( 'wc/store/v1/' ) ),
+			'_nonce'     => wp_create_nonce( 'wc_store_api' ),
+			'pending'    => false,
+			'bump'       => false,
+			'countLabel' => static function (): string {
+				$n = (int) ( wp_interactivity_state( 'pd/bag' )['count'] ?? 0 );
+				return 1 === $n ? 'Bag, 1 work' : "Bag, {$n} works";
+			},
+		);
 	}
 
 	/** Test hook: forget what was seeded in this request. */

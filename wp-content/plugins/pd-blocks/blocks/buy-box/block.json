@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/buy-box",
+	"title": "Buy box",
+	"category": "woocommerce",
+	"description": "Work page buying column: title in both scripts, maker, facts, price, availability, Buy now, Add to bag and Commission now.",
+	"usesContext": [ "postId", "postType" ],
+	"supports": { "html": false, "interactivity": true, "align": false, "multiple": false },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}
