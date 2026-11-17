@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/work-gallery",
+	"title": "Work gallery",
+	"category": "woocommerce",
+	"description": "Main 4:5 plate and thumbnails of a work. The plate is where a work card's plate lands when you open the work.",
+	"usesContext": [ "postId", "postType" ],
+	"supports": { "html": false, "interactivity": true, "align": false, "multiple": false },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

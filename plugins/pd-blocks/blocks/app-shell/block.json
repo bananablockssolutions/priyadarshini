@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/app-shell",
+	"title": "App shell",
+	"category": "theme",
+	"description": "The persistent header: brandmark, main navigation, search, bag count, context row, progress line and live regions. Stays paper and ink on every route.",
+	"attributes": { "mode": { "type": "string", "enum": [ "full", "calm" ], "default": "full" } },
+	"supports": { "html": false, "interactivity": true, "align": false, "multiple": false, "reusable": false },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

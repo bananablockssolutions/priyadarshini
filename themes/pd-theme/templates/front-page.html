@@ -1,0 +1,39 @@
+<!-- wp:template-part {"slug":"header","tagName":"div"} /-->
+<!-- wp:pd/routed-main {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|7","bottom":"var:preset|spacing|8"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"align":"wide","layout":{"type":"constrained","justifyContent":"left","contentSize":"44rem"}} -->
+<div class="wp-block-group alignwide">
+<!-- wp:paragraph {"className":"pd-eyebrow"} --><p class="pd-eyebrow">A haat of named makers</p><!-- /wp:paragraph -->
+<!-- wp:heading {"level":1,"fontSize":"xx-large"} --><h1 class="wp-block-heading has-xx-large-font-size">Made by hand, by name.</h1><!-- /wp:heading -->
+<!-- wp:paragraph {"lang":"hi","fontSize":"large","className":"pd-hi-line"} --><p class="pd-hi-line has-large-font-size" lang="hi">हाथ से बना, नाम के साथ।</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>Every work here is signed by the artisan who made it. Meet the makers of Bihar, follow the ones you love and buy straight from their hands.</p><!-- /wp:paragraph -->
+<!-- wp:buttons --><div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/artisans/">Meet the artisans</a></div><!-- /wp:button --><!-- wp:button {"className":"is-style-outline"} --><div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/shop/">See the works</a></div><!-- /wp:button --></div><!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"align":"wide","className":"is-style-double-rule","style":{"spacing":{"margin":{"top":"var:preset|spacing|8"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group alignwide is-style-double-rule" style="margin-top:var(--wp--preset--spacing--8)">
+<!-- wp:heading --><h2 class="wp-block-heading">Artisans</h2><!-- /wp:heading -->
+<!-- wp:query {"queryId":2,"query":{"perPage":4,"postType":"pd_artisan","inherit":false,"order":"desc","orderBy":"date"},"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"14rem"}} -->
+<!-- wp:pd/artisan-card /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph --><p>New artisans are joining soon.</p><!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"align":"wide","className":"is-style-double-rule","style":{"spacing":{"margin":{"top":"var:preset|spacing|8"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group alignwide is-style-double-rule" style="margin-top:var(--wp--preset--spacing--8)">
+<!-- wp:heading --><h2 class="wp-block-heading">New works</h2><!-- /wp:heading -->
+<!-- wp:query {"queryId":3,"query":{"perPage": 8, "postType": "product", "inherit": false, "order": "desc", "orderBy": "date"},"layout":{"type":"default"},"align":"wide"} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"14rem"}} -->
+<!-- wp:pd/work-card /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph --><p>New works are on their way from the makers.</p><!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+<!-- /wp:pd/routed-main -->
+<!-- wp:template-part {"slug":"footer","tagName":"div"} /-->
