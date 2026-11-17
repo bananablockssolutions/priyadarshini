@@ -1,0 +1,24 @@
+<!-- wp:template-part {"slug":"header","tagName":"div"} /-->
+<!-- wp:pd/routed-main {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|7","bottom":"var:preset|spacing|8"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
+<div class="wp-block-group alignwide">
+<!-- wp:post-title {"level":1} /-->
+<!-- wp:pd/follow-button /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:post-content {"layout":{"type":"constrained","justifyContent":"left"}} /-->
+<!-- wp:group {"align":"wide","className":"is-style-double-rule","style":{"spacing":{"margin":{"top":"var:preset|spacing|8"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group alignwide is-style-double-rule" style="margin-top:var(--wp--preset--spacing--8)">
+<!-- wp:heading --><h2 class="wp-block-heading" id="works">Works</h2><!-- /wp:heading -->
+<!-- wp:query {"queryId":4,"query":{"perPage": 12, "postType": "product", "inherit": false, "pdShelf": "current-artisan", "order": "desc", "orderBy": "date"},"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-query alignwide"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"14rem"}} -->
+<!-- wp:pd/work-card {"showMaker":false,"focusContext":"shelf"} /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph --><p>New works are on their way from the makers.</p><!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+<!-- /wp:pd/routed-main -->
+<!-- wp:template-part {"slug":"footer","tagName":"div"} /-->

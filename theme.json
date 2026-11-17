@@ -1,0 +1,484 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+			"custom": false,
+			"customGradient": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{
+					"slug": "kagaz",
+					"name": "Kagaz (paper)",
+					"color": "#F4EBD9"
+				},
+				{
+					"slug": "kagaz-gehra",
+					"name": "Kagaz Gehra (deep paper)",
+					"color": "#E9DCC3"
+				},
+				{
+					"slug": "card",
+					"name": "Card",
+					"color": "#FFFAF0"
+				},
+				{
+					"slug": "kajal",
+					"name": "Kajal (ink)",
+					"color": "#2A1E17"
+				},
+				{
+					"slug": "sindoor",
+					"name": "Sindoor (action)",
+					"color": "#C8321F"
+				},
+				{
+					"slug": "neel",
+					"name": "Neel (links, trust)",
+					"color": "#25306B"
+				},
+				{
+					"slug": "haldi",
+					"name": "Haldi (stars, fill only)",
+					"color": "#E9A30C"
+				},
+				{
+					"slug": "patta",
+					"name": "Patta (success)",
+					"color": "#3E7B3A"
+				},
+				{
+					"slug": "gulabi",
+					"name": "Gulabi (maker accent, fill only)",
+					"color": "#D9467A"
+				},
+				{
+					"slug": "kusum",
+					"name": "Kusum (maker accent, fill only)",
+					"color": "#E26A1B"
+				}
+			]
+		},
+		"typography": {
+			"customFontSize": true,
+			"defaultFontSizes": false,
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"slug": "display",
+					"name": "Yatra One",
+					"fontFamily": "'Yatra One', Georgia, serif",
+					"fontFace": [
+						{
+							"fontFamily": "Yatra One",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/yatra-one-latin-400-normal.woff2"
+							],
+							"unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+						},
+						{
+							"fontFamily": "Yatra One",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/yatra-one-devanagari-400-normal.woff2"
+							],
+							"unicodeRange": "U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09"
+						}
+					]
+				},
+				{
+					"slug": "body",
+					"name": "Mukta",
+					"fontFamily": "'Mukta', system-ui, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Mukta",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/mukta-latin-400-normal.woff2"
+							],
+							"unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+						},
+						{
+							"fontFamily": "Mukta",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/mukta-devanagari-400-normal.woff2"
+							],
+							"unicodeRange": "U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09"
+						},
+						{
+							"fontFamily": "Mukta",
+							"fontWeight": "600",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/mukta-latin-600-normal.woff2"
+							],
+							"unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+						},
+						{
+							"fontFamily": "Mukta",
+							"fontWeight": "600",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/mukta-devanagari-600-normal.woff2"
+							],
+							"unicodeRange": "U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09"
+						},
+						{
+							"fontFamily": "Mukta",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/mukta-latin-700-normal.woff2"
+							],
+							"unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+						},
+						{
+							"fontFamily": "Mukta",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/mukta-devanagari-700-normal.woff2"
+							],
+							"unicodeRange": "U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09"
+						}
+					]
+				},
+				{
+					"slug": "hand",
+					"name": "Kalam (artisan voice only)",
+					"fontFamily": "'Kalam', cursive",
+					"fontFace": [
+						{
+							"fontFamily": "Kalam",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/kalam-latin-400-normal.woff2"
+							],
+							"unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+						},
+						{
+							"fontFamily": "Kalam",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/kalam-devanagari-400-normal.woff2"
+							],
+							"unicodeRange": "U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09"
+						},
+						{
+							"fontFamily": "Kalam",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/kalam-latin-700-normal.woff2"
+							],
+							"unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+						},
+						{
+							"fontFamily": "Kalam",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/kalam-devanagari-700-normal.woff2"
+							],
+							"unicodeRange": "U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+20F0,U+25CC,U+A830-A839,U+A8E0-A8FF,U+11B00-11B09"
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{
+					"slug": "small",
+					"name": "Small",
+					"size": "0.875rem"
+				},
+				{
+					"slug": "base",
+					"name": "Base",
+					"size": "1.0625rem"
+				},
+				{
+					"slug": "large",
+					"name": "Large",
+					"size": "1.5625rem",
+					"fluid": {
+						"min": "1.3rem",
+						"max": "1.5625rem"
+					}
+				},
+				{
+					"slug": "x-large",
+					"name": "Extra large",
+					"size": "2.25rem",
+					"fluid": {
+						"min": "1.75rem",
+						"max": "2.25rem"
+					}
+				},
+				{
+					"slug": "xx-large",
+					"name": "Display",
+					"size": "3.5rem",
+					"fluid": {
+						"min": "2.25rem",
+						"max": "3.5rem"
+					}
+				}
+			]
+		},
+		"spacing": {
+			"units": [
+				"px",
+				"rem",
+				"%"
+			],
+			"spacingScale": {
+				"steps": 0
+			},
+			"spacingSizes": [
+				{
+					"slug": "1",
+					"name": "1",
+					"size": "4px"
+				},
+				{
+					"slug": "2",
+					"name": "2",
+					"size": "8px"
+				},
+				{
+					"slug": "3",
+					"name": "3",
+					"size": "12px"
+				},
+				{
+					"slug": "4",
+					"name": "4",
+					"size": "16px"
+				},
+				{
+					"slug": "5",
+					"name": "5",
+					"size": "24px"
+				},
+				{
+					"slug": "6",
+					"name": "6",
+					"size": "32px"
+				},
+				{
+					"slug": "7",
+					"name": "7",
+					"size": "48px"
+				},
+				{
+					"slug": "8",
+					"name": "8",
+					"size": "64px"
+				}
+			]
+		},
+		"layout": {
+			"contentSize": "68rem",
+			"wideSize": "76rem"
+		},
+		"border": {
+			"radius": false,
+			"color": true,
+			"style": true,
+			"width": true
+		},
+		"shadow": {
+			"defaultPresets": false
+		},
+		"custom": {
+			"hair": "rgba(42, 30, 23, 0.3)",
+			"kajal-soft": "rgba(42, 30, 23, 0.8)"
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--kagaz)",
+			"text": "var(--wp--preset--color--kajal)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--body)",
+			"fontSize": "var(--wp--preset--font-size--base)",
+			"lineHeight": "1.55"
+		},
+		"spacing": {
+			"blockGap": "var(--wp--preset--spacing--5)",
+			"padding": {
+				"left": "var(--wp--preset--spacing--4)",
+				"right": "var(--wp--preset--spacing--4)"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var(--wp--preset--color--neel)"
+				},
+				"typography": {
+					"textDecoration": "underline",
+					"fontWeight": "600"
+				},
+				":hover": {
+					"typography": {
+						"textDecoration": "underline"
+					}
+				}
+			},
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "400",
+					"lineHeight": "1.25"
+				}
+			},
+			"h1": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--xx-large)"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--x-large)"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--large)"
+				}
+			},
+			"button": {
+				"color": {
+					"background": "var(--wp--preset--color--sindoor)",
+					"text": "var(--wp--preset--color--card)"
+				},
+				"border": {
+					"width": "2px",
+					"style": "solid",
+					"color": "var(--wp--preset--color--kajal)",
+					"radius": "2px"
+				},
+				"typography": {
+					"fontWeight": "700",
+					"textDecoration": "none"
+				},
+				"spacing": {
+					"padding": {
+						"top": "var(--wp--preset--spacing--3)",
+						"bottom": "var(--wp--preset--spacing--3)",
+						"left": "var(--wp--preset--spacing--5)",
+						"right": "var(--wp--preset--spacing--5)"
+					}
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "400",
+					"fontSize": "var(--wp--preset--font-size--large)"
+				},
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--kajal)"
+						},
+						"typography": {
+							"textDecoration": "none"
+						}
+					}
+				}
+			},
+			"core/navigation": {
+				"typography": {
+					"fontWeight": "600"
+				},
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--kajal)"
+						},
+						"typography": {
+							"textDecoration": "none"
+						}
+					}
+				}
+			},
+			"core/post-title": {
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--kajal)"
+						},
+						"typography": {
+							"textDecoration": "none"
+						}
+					}
+				}
+			},
+			"core/pullquote": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--hand)",
+					"fontSize": "var(--wp--preset--font-size--large)"
+				},
+				"border": {
+					"width": "0 0 0 4px",
+					"style": "solid"
+				}
+			},
+			"core/separator": {
+				"border": {
+					"color": "var(--wp--preset--color--kajal)",
+					"width": "0 0 1.5px 0",
+					"style": "solid"
+				}
+			}
+		},
+		"css": ":root{--pd-paper:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .25  0 0 0 0 .15  0 0 0 .22 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>\")}body{background-image:var(--pd-paper);background-attachment:fixed}:lang(hi){line-height:1.65}.pd-skip{position:absolute;left:8px;top:-80px;background:var(--wp--preset--color--kajal);color:var(--wp--preset--color--kagaz);padding:10px 16px;z-index:50}.pd-skip:focus{top:8px}:where(a,button,input,select,textarea,summary):focus-visible{outline:3px solid var(--wp--preset--color--neel);outline-offset:3px}.pd-eyebrow{font:700 .8125rem/1.3 var(--wp--preset--font-family--body);letter-spacing:.09em;text-transform:uppercase}.pd-double-rule{border:0;border-top:1.5px solid var(--wp--preset--color--kajal);border-bottom:1.5px solid var(--wp--preset--color--kajal);height:5px;width:3.2em;margin-inline:0}"
+	},
+	"templateParts": [
+		{
+			"name": "header",
+			"title": "Header",
+			"area": "header"
+		},
+		{
+			"name": "footer",
+			"title": "Footer",
+			"area": "footer"
+		},
+		{
+			"name": "checkout-header",
+			"title": "Checkout header (calm)",
+			"area": "header"
+		}
+	],
+	"customTemplates": []
+}
