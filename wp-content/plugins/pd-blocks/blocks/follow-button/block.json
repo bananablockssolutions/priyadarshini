@@ -5,9 +5,22 @@
 	"title": "Follow button",
 	"category": "widgets",
 	"description": "Follow or unfollow an artisan. Works without JavaScript as a form post.",
-	"attributes": { "artisanPostId": { "type": "integer", "default": 0 } },
-	"usesContext": [ "postId", "postType" ],
-	"supports": { "html": false, "interactivity": true, "align": false },
+	"attributes": {
+		"artisanPostId": {
+			"type": "integer",
+			"default": 0
+		}
+	},
+	"usesContext": [
+		"postId",
+		"postType"
+	],
+	"supports": {
+		"html": false,
+		"interactivity": true,
+		"align": false
+	},
 	"textdomain": "pd-blocks",
-	"render": "file:./render.php"
+	"render": "file:./render.php",
+	"editorScript": "pd-blocks-editor"
 }

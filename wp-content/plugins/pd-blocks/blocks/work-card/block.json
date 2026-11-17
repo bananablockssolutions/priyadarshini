@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/work-card",
+	"title": "Work card",
+	"category": "woocommerce",
+	"description": "One work as a museum label: 4:5 plate, catalogue number, title in both scripts, maker, price and buying format. Place inside a Product Collection or a Query Loop over products.",
+	"attributes": {
+		"showMaker": { "type": "boolean", "default": true },
+		"focusContext": { "type": "string", "default": "grid" }
+	},
+	"usesContext": [ "postId", "postType", "queryId" ],
+	"supports": { "html": false, "interactivity": true, "align": false },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

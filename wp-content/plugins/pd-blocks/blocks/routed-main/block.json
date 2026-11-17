@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/routed-main",
+	"title": "Routed main",
+	"category": "theme",
+	"description": "The main region that client navigation replaces. Templates only.",
+	"supports": {
+		"html": false,
+		"interactivity": true,
+		"inserter": false,
+		"multiple": false,
+		"reusable": false,
+		"layout": {
+			"default": {
+				"type": "constrained"
+			}
+		},
+		"spacing": {
+			"padding": true,
+			"margin": false
+		},
+		"align": [
+			"full"
+		]
+	},
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}
