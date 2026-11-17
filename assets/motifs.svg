@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<!-- Placeholder motifs only. Final artwork must be commissioned from a Madhubani artist. -->
+  <symbol id="pd-m-fish" viewBox="0 0 90 60">
+    <path d="M6 30C20 8 46 8 62 30C46 52 20 52 6 30Z" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M62 30L84 12L78 30L84 48Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M30 20q6 10 0 20M40 17q6 13 0 26M50 20q6 10 0 20" fill="none" stroke="var(--kajal)" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="19" cy="27" r="3.4" fill="var(--card)" stroke="var(--kajal)" stroke-width="1.8"/><circle cx="19" cy="27" r="1.2" fill="var(--kajal)"/>
+  </symbol>
+  <symbol id="pd-m-leaf" viewBox="0 0 60 90">
+    <path d="M30 88V12" fill="none" stroke="var(--kajal)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M30 74C12 74 6 60 6 50C22 52 30 62 30 74Z" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M30 64C48 64 54 50 54 40C38 42 30 52 30 64Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M30 46C14 46 10 34 10 26C24 28 30 36 30 46Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M30 36C46 36 50 24 50 16C36 18 30 26 30 36Z" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="30" cy="8" r="5" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.2"/>
+  </symbol>
+  <symbol id="pd-m-sun" viewBox="0 0 80 80">
+    <g stroke="var(--kajal)" stroke-width="2.4" stroke-linecap="round">
+      <path d="M40 3v8M40 69v8M3 40h8M69 40h8M14 14l6 6M60 60l6 6M66 14l-6 6M20 60l-6 6"/>
+    </g>
+    <circle cx="40" cy="40" r="26" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.4"/>
+    <circle cx="40" cy="40" r="16" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.4"/>
+    <circle cx="40" cy="40" r="5" fill="var(--kajal)"/>
+  </symbol>
+  <symbol id="pd-m-lotus" viewBox="0 0 90 70">
+    <path d="M45 58C22 60 8 52 4 40C20 38 38 46 45 58Z" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M45 58C68 60 82 52 86 40C70 38 52 46 45 58Z" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M45 56C28 52 16 40 14 24C30 26 42 38 45 56Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M45 56C62 52 74 40 76 24C60 26 48 38 45 56Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M45 56C36 42 36 24 45 8C54 24 54 42 45 56Z" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M10 64q8-5 17 0t18 0 18 0 17 0" fill="none" stroke="var(--kajal)" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pd-m-peacock" viewBox="0 0 100 80">
+    <g stroke="var(--kajal)" stroke-width="2" stroke-linejoin="round">
+      <g transform="rotate(-62 50 64)"><path d="M50 64C43 44 43 24 50 8C57 24 57 44 50 64Z" fill="var(--card)"/><circle cx="50" cy="21" r="4.5" fill="var(--accent)"/></g>
+      <g transform="rotate(-31 50 64)"><path d="M50 64C43 44 43 24 50 8C57 24 57 44 50 64Z" fill="var(--accent)"/><circle cx="50" cy="21" r="4.5" fill="var(--card)"/></g>
+      <g><path d="M50 64C43 44 43 24 50 8C57 24 57 44 50 64Z" fill="var(--card)"/><circle cx="50" cy="21" r="4.5" fill="var(--accent)"/></g>
+      <g transform="rotate(31 50 64)"><path d="M50 64C43 44 43 24 50 8C57 24 57 44 50 64Z" fill="var(--accent)"/><circle cx="50" cy="21" r="4.5" fill="var(--card)"/></g>
+      <g transform="rotate(62 50 64)"><path d="M50 64C43 44 43 24 50 8C57 24 57 44 50 64Z" fill="var(--card)"/><circle cx="50" cy="21" r="4.5" fill="var(--accent)"/></g>
+      <path d="M40 76C40 62 60 62 60 76Z" fill="var(--kajal)"/>
+      <circle cx="50" cy="58" r="5" fill="var(--card)"/>
+    </g>
+  </symbol>
+  <symbol id="pd-m-person" viewBox="0 0 80 100">
+    <path d="M6 100C6 70 22 58 40 58S74 70 74 100Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="40" cy="32" r="17" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.4"/>
+    <path d="M24 30C24 12 56 12 56 30C50 22 30 22 24 30Z" fill="var(--kajal)"/>
+  </symbol>
+  <symbol id="pd-m-studio" viewBox="0 0 100 70">
+    <path d="M8 40h84v8H8Z" fill="var(--card)" stroke="var(--kajal)" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M18 48v16M82 48v16" stroke="var(--kajal)" stroke-width="2.4" stroke-linecap="round"/>
+    <rect x="22" y="28" width="38" height="12" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2"/>
+    <circle cx="70" cy="34" r="6" fill="var(--card)" stroke="var(--kajal)" stroke-width="2"/><circle cx="84" cy="35" r="5" fill="var(--accent)" stroke="var(--kajal)" stroke-width="2"/>
+    <path d="M30 24L74 8" stroke="var(--kajal)" stroke-width="2.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="pd-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 17.8 5.8 21.5l1.6-7L2 9.8l7.1-.7z"/></symbol>
+</svg>

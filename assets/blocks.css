@@ -1,0 +1,173 @@
+/* Priyadarshini blocks. Tokens come from pd-theme (theme.json); fallbacks keep blocks readable under another theme.
+   Shell: paper and ink on every route (UI-05). Colour belongs to the maker: [data-accent] scopes set --accent. */
+:root{
+	--kagaz:var(--wp--preset--color--kagaz,#F4EBD9);--kagaz-gehra:var(--wp--preset--color--kagaz-gehra,#E9DCC3);--card:var(--wp--preset--color--card,#FFFAF0);
+	--kajal:var(--wp--preset--color--kajal,#2A1E17);--sindoor:var(--wp--preset--color--sindoor,#C8321F);--neel:var(--wp--preset--color--neel,#25306B);
+	--haldi:var(--wp--preset--color--haldi,#E9A30C);--patta:var(--wp--preset--color--patta,#3E7B3A);--gulabi:var(--wp--preset--color--gulabi,#D9467A);--kusum:var(--wp--preset--color--kusum,#E26A1B);
+	--kajal-soft:rgba(42,30,23,.8);--hair:rgba(42,30,23,.3);--accent:var(--kajal);
+	--display:var(--wp--preset--font-family--display,'Yatra One',Georgia,serif);--body:var(--wp--preset--font-family--body,'Mukta',system-ui,sans-serif);
+	--pd-shell-h:108px;
+}
+[data-accent="gulabi"]{--accent:var(--gulabi)}[data-accent="kusum"]{--accent:var(--kusum)}[data-accent="neel"]{--accent:var(--neel)}
+[data-accent="patta"]{--accent:var(--patta)}[data-accent="sindoor"]{--accent:var(--sindoor)}[data-accent="haldi"]{--accent:var(--haldi)}
+.pd-motif{display:block;width:100%;height:100%}
+.screen-reader-text{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:-1px;padding:0;border:0}
+
+/* ---------- buttons and inputs ---------- */
+.pd-btn{box-sizing:border-box;display:inline-flex;align-items:center;white-space:nowrap;justify-content:center;gap:8px;min-height:44px;padding:10px 20px;font:700 16px/1.2 var(--body);color:var(--kajal);background:var(--card);border:2px solid var(--kajal);border-radius:2px;box-shadow:3px 3px 0 var(--kajal);cursor:pointer;text-decoration:none}
+.pd-btn:hover{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--kajal)}
+.pd-btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--kajal)}
+.pd-btn--primary{background:var(--sindoor);color:var(--card)}
+.pd-btn--small{min-height:36px;padding:4px 14px;box-shadow:none}
+.pd-btn--text{background:none;border-color:transparent;box-shadow:none;color:var(--neel);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;padding-inline:8px}
+.pd-btn--text:hover,.pd-btn--text:active{transform:none;box-shadow:none}
+.pd-btn[aria-busy="true"]{cursor:progress}
+.pd-btn[aria-busy="true"]::after{content:"";width:1.2em;height:.3em;background:radial-gradient(circle,currentColor 1.5px,transparent 2px) 0 0/.4em .3em;animation:pd-dots 1s steps(3) infinite}
+.pd-input{box-sizing:border-box;width:100%;min-height:44px;padding:10px 12px;font:17px var(--body);color:var(--kajal);background:var(--card);border:2px solid var(--kajal);border-radius:2px}
+:where(.pd-shell,.pd-main) :focus-visible{outline:3px solid var(--neel);outline-offset:3px}
+@keyframes pd-dots{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+
+/* ---------- app shell (fixed 64 + 44 = 108px; nothing in it changes size) ---------- */
+.pd-shell{position:sticky;top:0;z-index:30;background:var(--kagaz) var(--pd-paper,none);transition:transform .25s ease;view-transition-name:pd-shell}
+.admin-bar .pd-shell{top:var(--wp-admin--admin-bar--height,32px)}
+.pd-shell.is-hidden{transform:translateY(-100%)}
+.pd-shell__bar{position:relative;display:flex;flex-wrap:nowrap;align-items:center;gap:0 16px;height:64px;padding:0 16px}
+.pd-brandmark{display:flex;align-items:center;gap:10px;color:var(--kajal);text-decoration:none;min-height:44px;flex:none}
+.pd-brandmark .pd-motif{width:44px;height:30px}
+.pd-brandmark__words{display:grid;line-height:1}
+.pd-brandmark__en{font:24px/1 var(--display)}
+.pd-brandmark__hi{font:14px/1.3 var(--display);color:var(--kajal-soft)}
+.pd-shell__nav ul{display:flex;gap:24px;margin:0 0 0 12px;padding:0;list-style:none}
+.pd-shell__nav a{display:flex;flex-direction:column;justify-content:center;min-height:44px;padding:6px 0;color:var(--neel);font-weight:600;text-decoration:none}
+.pd-shell__nav .pd-hi{font-weight:400;font-size:13px;line-height:1.3;color:var(--kajal-soft)}
+.pd-shell__nav a[aria-current="page"]{color:var(--kajal);font-weight:700}
+.pd-shell__nav a[aria-current="page"] span:first-child{border-bottom:4px double var(--kajal)}
+.pd-shell__tools{margin-left:auto;display:flex;align-items:center;gap:4px}
+.pd-iconbtn{min-height:44px;min-width:44px;padding:0 8px;background:none;border:0;font:600 16px var(--body);color:var(--neel);cursor:pointer;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;display:inline-flex;align-items:center}
+.pd-bagc{display:inline-block;min-width:1.4em;text-align:center;font-variant-numeric:tabular-nums;border:1.5px solid var(--kajal);padding:0 6px;background:var(--card);font-size:13px;color:var(--kajal);text-decoration:none}
+.pd-bagc.is-bump{animation:pd-bump .3s}
+@keyframes pd-bump{50%{transform:scale(1.35)}}
+.pd-menubtn{display:none}
+.pd-progress{position:absolute;left:0;right:0;bottom:-3px;height:3px;opacity:0;background:repeating-linear-gradient(90deg,var(--kajal) 0 14px,transparent 14px 24px);background-size:48px 3px;pointer-events:none}
+.pd-progress.is-on{opacity:1;animation:pd-slide3 1s linear infinite}
+@keyframes pd-slide3{to{background-position:48px 0}}
+.pd-shell__ctx{position:relative;height:44px;display:flex;align-items:center;padding:0 16px;border-top:1.5px solid var(--kajal);border-bottom:5px double var(--kajal);font-size:14px}
+.pd-ctx{display:flex;align-items:center;gap:12px;min-width:0;width:100%;white-space:nowrap;overflow:hidden}
+.pd-ctx[hidden]{display:none}
+.pd-ctx__text{overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.pd-ctx__hi{color:var(--kajal-soft)}
+.pd-ctx__maker{flex:none;display:inline-flex}
+.pd-shell__search{display:flex;gap:8px;align-items:center;width:100%}
+.pd-shell__search[hidden]{display:none}
+.pd-shell__search .pd-input{min-height:36px;padding:4px 10px;flex:1;min-width:0}
+.pd-shell[data-mode="calm"] .pd-shell__nav,.pd-shell[data-mode="calm"] #pd-shell-search-btn,.pd-shell[data-mode="calm"] .pd-menubtn{visibility:hidden}
+.pd-shell[data-mode="calm"] .pd-shell__ctx{border-bottom:1.5px solid var(--kajal)}
+@media (min-width:760px){.pd-shell__bar,.pd-shell__ctx{padding:0 48px}}
+@media (max-width:759px){
+	.pd-menubtn{display:inline-flex}
+	.pd-shell__bar{gap:0 8px}
+	.pd-iconbtn{padding:0 5px;min-width:0;font-size:15px}
+	.pd-brandmark__en{font-size:20px}
+	.pd-brandmark__hi{display:none}
+	.pd-shell__nav{display:none;position:absolute;left:0;right:0;top:calc(100% + 44px);background:var(--kagaz);border-bottom:5px double var(--kajal);border-top:1.5px solid var(--kajal);z-index:5;padding:0 16px}
+	.pd-shell__bar.is-menu-open .pd-shell__nav{display:block}
+	.pd-shell__nav ul{flex-direction:column;gap:0;margin:0}
+	.pd-shell__nav a{flex-direction:row;align-items:baseline;gap:12px;min-height:48px;border-bottom:1px dotted var(--kajal)}
+}
+@media (max-width:399px){.pd-shell__bar{padding:0 12px;gap:0 8px}.pd-brandmark__en{font-size:20px}.pd-brandmark .pd-motif{width:36px}.pd-brandmark__hi{display:none}}
+
+/* ---------- splash (UI-08/09): CSS ends it at 1.9 s on its own, so it can never block the page ---------- */
+.pd-splash{display:none}
+.pd-splash-on .pd-splash{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:var(--kagaz);animation:pd-splash-out .25s 1.9s forwards}
+.pd-splash-on .pd-brandmark .pd-motif{visibility:hidden}
+.pd-splash__motif{width:min(300px,70vw);height:auto;will-change:transform}
+.pd-splash__line{fill:none;stroke:var(--kajal);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:420;stroke-dashoffset:420;animation:pd-draw .9s ease forwards}
+.pd-splash__fill{opacity:0;animation:pd-fadein .4s .6s forwards}
+.pd-splash.is-docking{background:transparent;transition:background .5s ease .1s}
+.pd-splash.is-docking .pd-splash__skip{display:none}
+.pd-splash__skip{position:absolute;bottom:32px;left:50%;transform:translateX(-50%)}
+@keyframes pd-draw{to{stroke-dashoffset:0}}
+@keyframes pd-fadein{to{opacity:1}}
+@keyframes pd-splash-out{to{opacity:0;visibility:hidden}}
+
+/* ---------- routed main: loading, arrival, view transitions ---------- */
+.pd-main{display:block;min-height:60vh}
+.pd-main:focus{outline:none}
+.pd-main h1:focus{outline:none}
+.pd-main h1:focus-visible{outline:3px solid var(--neel);outline-offset:4px}
+.pd-is-loading .pd-main{opacity:.55;transition:opacity .2s;cursor:progress}
+.pd-arrived{outline:4px double var(--kajal);outline-offset:4px}
+::view-transition-group(pd-shared){animation-duration:.5s;animation-timing-function:cubic-bezier(.6,.05,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.16s}
+::view-transition-group(pd-shell){animation:none}
+@media (prefers-reduced-motion:reduce){
+	::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+	.pd-shell{transition:none}.pd-shell.is-hidden{transform:none}
+	.pd-bagc.is-bump{animation:none;outline:2px solid var(--kajal);outline-offset:2px}
+	.pd-progress.is-on{animation:none;background:var(--kajal)}
+	.pd-btn:hover,.pd-btn:active{transform:none}
+}
+
+/* ---------- primitives: plate, seal, rating ---------- */
+.pd-plate{position:relative;display:grid;place-items:center;aspect-ratio:4/5;background:var(--kagaz-gehra);border:2px solid var(--kajal);border-radius:2px 3px 2px 3px/3px 2px 3px 2px;overflow:hidden}
+.pd-plate::before{content:"";position:absolute;inset:5px;border:1.5px solid var(--kajal);pointer-events:none;z-index:1}
+.pd-plate--3-2{aspect-ratio:3/2}
+.pd-plate--1-1{aspect-ratio:1/1}
+.pd-plate__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pd-plate__motif{width:54%;height:auto;max-height:78%}
+.pd-seal{position:relative;display:inline-grid;flex:none}
+.pd-seal__mark{--s:96px;position:relative;width:var(--s);height:var(--s);border-radius:50%;background:var(--accent);border:2px solid var(--kajal);display:grid;place-items:center;font:calc(var(--s)*.42)/1 var(--display);color:var(--kajal)}
+.pd-seal__mark::before{content:"";position:absolute;inset:5px;border-radius:50%;border:1.5px solid var(--kajal)}
+.pd-seal__motif{position:absolute;right:-8px;bottom:-4px;width:38%;aspect-ratio:1;border-radius:50%;background:var(--card);border:2px solid var(--kajal)}
+.pd-seal__motif .pd-motif{position:absolute;inset:16%;width:68%;height:68%}
+.pd-seal--sm .pd-seal__mark{--s:56px}.pd-seal--sm .pd-seal__mark::before{inset:3px}
+.pd-seal--xs .pd-seal__mark{--s:30px;font-size:14px}.pd-seal--xs .pd-seal__mark::before{inset:2px;border-width:1px}
+.pd-rating{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-variant-numeric:tabular-nums}
+.pd-rating__stars{position:relative;display:inline-block;width:5.4em;height:1em;background:linear-gradient(90deg,var(--haldi) var(--pd-r),var(--kagaz) var(--pd-r));-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2.5l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 17.8 5.8 21.5l1.6-7L2 9.8l7.1-.7z'/></svg>") 0 0/1.08em 1em repeat-x;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2.5l2.9 6.6 7.1.7-5.4 4.7 1.6 7L12 17.8 5.8 21.5l1.6-7L2 9.8l7.1-.7z'/></svg>") 0 0/1.08em 1em repeat-x}
+.pd-newtag{display:inline-block;border:1.5px solid currentColor;padding:0 .4em;font-size:13px;font-weight:700;letter-spacing:.04em}
+.pd-catno{display:block;font:700 12px/1.3 var(--body);letter-spacing:.1em;text-transform:uppercase}
+.pd-price{font:700 19px var(--body);font-variant-numeric:tabular-nums}
+.pd-price del{font-weight:400;opacity:.7}
+.pd-price ins{text-decoration:none}
+.pd-format{display:inline-block;max-width:100%;font-size:13px;font-weight:700;border:1.5px solid var(--kajal);padding:0 6px;background:var(--card)}
+.pd-maker-line{display:flex;align-items:center;gap:10px;margin:0}
+.pd-maker-line a{font-weight:700;color:var(--neel)}
+.pd-facts{display:grid;margin:0;font-size:15px}
+.pd-facts div{display:grid;grid-template-columns:7.5em 1fr;gap:12px;padding:5px 0;border-bottom:1px dotted var(--kajal)}
+.pd-facts dt{font-weight:700}
+.pd-facts dd{margin:0}
+
+/* ---------- work card: a museum label under a framed plate ---------- */
+.pd-work-card{display:grid;gap:10px;align-content:start;container-type:inline-size}
+.pd-work-card__link{display:grid;gap:12px;color:inherit;text-decoration:none}
+.pd-work-card__link:hover .pd-work-card__title{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.pd-work-card__label{display:grid;gap:4px;border-top:1.5px solid var(--kajal);padding-top:10px}
+.pd-work-card__title{font:22px/1.25 var(--display)}
+.pd-work-card__title-hi{font:17px/1.6 var(--display)}
+.pd-work-card__foot,.pd-work-card__meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin:0}
+.pd-work-card__meta{font-size:14px;color:var(--kajal-soft)}
+.pd-work-card p{margin:0}
+
+/* ---------- work page: gallery and buy box ---------- */
+.pd-gallery{margin:0;display:grid;gap:12px}
+.pd-gallery__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.pd-gallery__thumbs a{display:block;width:64px;height:64px;border:2px solid var(--kajal);overflow:hidden}
+.pd-gallery__thumbs a[aria-current="true"]{outline:3px double var(--kajal);outline-offset:2px}
+.pd-gallery__thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.pd-buy{display:grid;gap:12px;align-content:start}
+.pd-buy p{margin:0}
+.pd-buy__title{font:var(--wp--preset--font-size--x-large,2.25rem)/1.2 var(--display);margin:0}
+.pd-buy__title-hi{font:22px/1.5 var(--display)}
+.pd-buy__price{font-size:26px}
+.pd-taxnote{font-size:14px;color:var(--kajal-soft)}
+.pd-stock{display:flex;gap:10px;align-items:baseline;font-weight:600}
+.pd-buy__actions{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;padding-top:8px}
+.pd-buy__actions form{display:flex;margin:0}
+
+/* ---------- artisan card (directory) ---------- */
+.pd-artisan-card{display:grid;gap:.25rem;padding:1rem;border:2px solid var(--kajal);background:var(--card)}
+.pd-artisan-card__link{color:inherit;text-decoration:none;display:grid}
+.pd-artisan-card__name{font:22px/1.2 var(--display)}
+.pd-artisan-card__name-hi{font:17px/1.5 var(--display)}
+.pd-artisan-card p{margin:0}
+.pd-follow{margin:0}
