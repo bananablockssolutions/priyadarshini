@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 final class Plugin {
 
 	/** Registered blocks (BLOCKS.md section 4). Grows as blocks are built. */
-	private const BLOCKS = array( 'follow-button', 'artisan-card', 'app-shell', 'routed-main', 'work-card', 'work-gallery', 'buy-box' );
+	private const BLOCKS = array( 'follow-button', 'artisan-card', 'app-shell', 'routed-main', 'work-card', 'work-gallery', 'buy-box', 'cover', 'craft-makers' );
 
 	public static function boot(): void {
 		if ( ! class_exists( '\PD\Plugin' ) ) {

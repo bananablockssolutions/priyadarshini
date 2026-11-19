@@ -18,6 +18,19 @@ foreach ( array( 'madhubani-painting' => 'Madhubani painting', 'sujni-embroidery
 	$crafts[ $slug ] = (int) ( is_array( $t ) ? $t['term_id'] : $t );
 }
 
+// Collection cards for the illustrated menu (sample words; the owner writes the real ones).
+$craft_words = array(
+	'madhubani-painting' => array( 'मधुबनी चित्रकला', 'Fish, lotus and the sun, drawn in double lines with a bamboo pen.', 'For generations the women of Mithila painted these on the walls of the kohbar, the wedding room. Today the same lines are drawn on handmade paper and cloth, every inch filled, nothing left empty. Each painting here is signed by the woman who drew it.', 'fish', 'gulabi', 1 ),
+	'sujni-embroidery'   => array( 'सुजनी कढ़ाई', 'Old saris layered and stitched into stories with a running stitch.', 'Sujani began as quilts made for newborns from worn saris. The women of Bhusura now stitch whole village scenes with it: wells, weddings, a girl going to school. One quilt can take a season.', 'lotus', 'kusum', 2 ),
+	'sikki-grass-work'   => array( 'सिक्की घास कला', 'Golden river grass, dyed and coiled into toys, boxes and baskets.', 'Sikki grows wild along the rivers of north Bihar. It is cut after the rains, dried until it turns gold, and coiled around a core of munj grass. Elephants, peacocks and lidded boxes for a bride’s trousseau.', 'peacock', 'haldi', 3 ),
+);
+foreach ( $craft_words as $slug => [ $hi, $teaser, $rest, $scene, $accent, $order ] ) {
+	wp_update_term( $crafts[ $slug ], 'product_cat', array( 'description' => $teaser . ' ' . $rest ) );
+	if ( class_exists( '\PD\Crafts\Meta' ) ) {
+		\PD\Crafts\Meta::set( $crafts[ $slug ], array( 'nameHi' => $hi, 'teaser' => $teaser, 'scene' => $scene, 'accent' => $accent, 'order' => $order ) );
+	}
+}
+
 $artisans = array(
 	array( 'demo-meera-devi', 'Meera Devi', 'मीरा देवी', 'Jitwarpur', 'gulabi', 'fish', 'madhubani-painting', 'Every line is drawn with a bamboo pen.' ),
 	array( 'demo-kavita-kumari', 'Kavita Kumari', 'कविता कुमारी', 'Bhusura', 'kusum', 'lotus', 'sujni-embroidery', 'Every stitch is something my mother taught me.' ),

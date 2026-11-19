@@ -148,10 +148,10 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		const barW = await p.evaluate( () => document.querySelector( '.pd-shell__bar' ).scrollWidth <= innerWidth );
 		ok( barW, 'shell bar fits a 390px screen' );
 		await p.click( '#pd-shell-menu-btn' );
-		ok( await p.locator( '.pd-shell__nav' ).isVisible(), 'Menu opens the nav' );
+		ok( await p.locator( '#pd-menu' ).isVisible(), 'Menu opens the illustrated menu' );
 		ok( ( await p.locator( '#pd-shell-menu-btn' ).textContent() ).trim() === 'Close', 'Menu button reads Close' );
 		await p.keyboard.press( 'Escape' );
-		ok( ! ( await p.locator( '.pd-shell__nav' ).isVisible() ), 'Escape closes the menu' );
+		ok( ! ( await p.locator( '#pd-menu' ).isVisible() ), 'Escape closes the menu' );
 		ok( await p.evaluate( () => document.activeElement?.id === 'pd-shell-menu-btn' ), 'focus returns to the Menu button' );
 		const h0 = await p.evaluate( () => document.querySelector( '.pd-shell' ).offsetHeight );
 		await p.click( '#pd-shell-search-btn' );

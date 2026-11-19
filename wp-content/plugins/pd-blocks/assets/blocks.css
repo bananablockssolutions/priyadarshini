@@ -47,7 +47,8 @@
 .pd-bagc{display:inline-block;min-width:1.4em;text-align:center;font-variant-numeric:tabular-nums;border:1.5px solid var(--kajal);padding:0 6px;background:var(--card);font-size:13px;color:var(--kajal);text-decoration:none}
 .pd-bagc.is-bump{animation:pd-bump .3s}
 @keyframes pd-bump{50%{transform:scale(1.35)}}
-.pd-menubtn{display:none}
+.pd-menubtn{gap:6px}
+.pd-menubtn__mark{width:26px;height:20px;flex:none;--accent:var(--gulabi)}
 .pd-progress{position:absolute;left:0;right:0;bottom:-3px;height:3px;opacity:0;background:repeating-linear-gradient(90deg,var(--kajal) 0 14px,transparent 14px 24px);background-size:48px 3px;pointer-events:none}
 .pd-progress.is-on{opacity:1;animation:pd-slide3 1s linear infinite}
 @keyframes pd-slide3{to{background-position:48px 0}}
@@ -64,15 +65,12 @@
 .pd-shell[data-mode="calm"] .pd-shell__ctx{border-bottom:1.5px solid var(--kajal)}
 @media (min-width:760px){.pd-shell__bar,.pd-shell__ctx{padding:0 48px}}
 @media (max-width:759px){
-	.pd-menubtn{display:inline-flex}
 	.pd-shell__bar{gap:0 8px}
 	.pd-iconbtn{padding:0 5px;min-width:0;font-size:15px}
 	.pd-brandmark__en{font-size:20px}
 	.pd-brandmark__hi{display:none}
-	.pd-shell__nav{display:none;position:absolute;left:0;right:0;top:calc(100% + 44px);background:var(--kagaz);border-bottom:5px double var(--kajal);border-top:1.5px solid var(--kajal);z-index:5;padding:0 16px}
-	.pd-shell__bar.is-menu-open .pd-shell__nav{display:block}
-	.pd-shell__nav ul{flex-direction:column;gap:0;margin:0}
-	.pd-shell__nav a{flex-direction:row;align-items:baseline;gap:12px;min-height:48px;border-bottom:1px dotted var(--kajal)}
+	.pd-shell__nav{display:none}
+	.pd-menubtn__mark{display:none}
 }
 @media (max-width:399px){.pd-shell__bar{padding:0 12px;gap:0 8px}.pd-brandmark__en{font-size:20px}.pd-brandmark .pd-motif{width:36px}.pd-brandmark__hi{display:none}}
 
@@ -171,3 +169,70 @@
 .pd-artisan-card__name-hi{font:17px/1.5 var(--display)}
 .pd-artisan-card p{margin:0}
 .pd-follow{margin:0}
+
+/* ---------- illustration: menu card art that becomes a page cover ---------- */
+.pd-ill{position:relative;display:block;overflow:hidden;aspect-ratio:3/2;background:var(--kagaz-gehra);border:2px solid var(--kajal);border-radius:2px 3px 2px 3px/3px 2px 3px 2px;color:var(--kajal)}
+.pd-ill::before{content:"";position:absolute;inset:5px;border:1.5px solid var(--kajal);pointer-events:none;z-index:2}
+.pd-ill::after{content:"";position:absolute;inset:8px;z-index:2;pointer-events:none;background:var(--kajal);
+	-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M0 0h16L8 9z'/></svg>") top left/16px 9px repeat-x,url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M8 0l8 9H0z'/></svg>") bottom left/16px 9px repeat-x;
+	mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M0 0h16L8 9z'/></svg>") top left/16px 9px repeat-x,url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M8 0l8 9H0z'/></svg>") bottom left/16px 9px repeat-x}
+.pd-ill__img,.pd-ill__scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pd-ill__ground{fill:color-mix(in srgb,var(--accent) 16%,var(--kagaz))}
+.pd-ill__halo{fill:color-mix(in srgb,var(--accent) 34%,var(--card));stroke:var(--kajal);stroke-width:2.5}
+.pd-ill__ring{fill:none;stroke:var(--kajal);stroke-width:3;stroke-dasharray:1 11;stroke-linecap:round}
+.pd-ill__ring2{fill:none;stroke:var(--accent);stroke-width:6;stroke-dasharray:18 10}
+.pd-ill__dot{fill:var(--accent);stroke:var(--kajal);stroke-width:2}
+.pd-ill__dot2{fill:var(--card);stroke:var(--kajal);stroke-width:2}
+.pd-ill__water{fill:none;stroke:var(--kajal);stroke-width:2.4;stroke-linecap:round}
+
+/* ---------- menu: a panel of illustrated cards under the shell ---------- */
+.pd-menu{display:none;position:absolute;left:0;right:0;top:100%;z-index:40;max-height:calc(100vh - var(--pd-shell-h) - 8px);max-height:calc(100dvh - var(--pd-shell-h) - 8px);overflow:auto;overscroll-behavior:contain;background:var(--kagaz) var(--pd-paper,none);border-bottom:5px double var(--kajal);box-shadow:0 18px 30px -18px rgba(42,30,23,.45)}
+.pd-menu:target,.pd-menu.is-open{display:block}
+.pd-menu__inner{max-width:1240px;margin:0 auto;padding:20px 16px 12px;display:grid;gap:22px}
+.pd-menu__label{margin:0 0 10px;font:700 13px/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline;border-bottom:1.5px solid var(--kajal);padding-bottom:6px}
+.pd-menu__label [lang="hi"]{font:400 15px/1 var(--display);letter-spacing:0;text-transform:none;color:var(--kajal-soft)}
+.pd-menu__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;margin:0;padding:0;list-style:none}
+.pd-menucard{display:grid;gap:10px;color:inherit;text-decoration:none;height:100%;padding:8px;border:2px solid transparent;border-radius:3px}
+.pd-menucard:hover{background:var(--card);border-color:var(--kajal);box-shadow:3px 3px 0 var(--kajal)}
+.pd-menucard:hover .pd-menucard__title{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.pd-menucard[aria-current="page"]{border-color:var(--kajal);border-style:double;border-width:4px;padding:6px}
+.pd-menucard__words{display:grid;gap:2px}
+.pd-menucard__title{font:24px/1.15 var(--display)}
+.pd-menucard__title-hi{font:17px/1.4 var(--display);color:var(--accent);filter:brightness(.75)}
+.pd-menucard__teaser{font-size:15px;line-height:1.45;color:var(--kajal-soft)}
+.pd-menu__close{margin:0;text-align:center}
+@media (max-width:759px){.pd-menu__grid{grid-template-columns:1fr 1fr;gap:10px}.pd-menucard{padding:4px}.pd-menucard__title{font-size:19px}.pd-menucard__teaser{font-size:14px}}
+@media (max-width:399px){.pd-menu__grid{grid-template-columns:1fr}.pd-menucard{grid-template-columns:120px 1fr;align-items:center}}
+
+/* ---------- page cover: the card's illustration, grown; the card's words, continued ---------- */
+.pd-cover{display:grid;gap:clamp(16px,3vw,40px);grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:center;margin-bottom:clamp(28px,5vw,56px)}
+.pd-cover__art{aspect-ratio:4/3}
+.pd-cover__text{display:grid;gap:6px;align-content:center}
+.pd-cover__kind{margin:0;font:700 13px/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline}
+.pd-cover__kind [lang="hi"]{font:400 15px/1 var(--display);letter-spacing:0;text-transform:none;color:var(--kajal-soft)}
+.pd-cover__title{margin:0;font:clamp(2.4rem,5vw,4rem)/1.05 var(--display)}
+.pd-cover__title-hi{margin:0;font:clamp(1.3rem,2.2vw,1.7rem)/1.4 var(--display);color:var(--accent);filter:brightness(.75)}
+.pd-cover__intro{display:grid;gap:10px;margin-top:10px;padding-top:14px;border-top:5px double var(--kajal);font-size:18px;line-height:1.6}
+.pd-cover__intro p{margin:0}
+.pd-cover__teaser{font-weight:600}
+.pd-section-title{font:clamp(1.6rem,3vw,2.2rem)/1.2 var(--display);margin:0 0 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;border-top:5px double var(--kajal);padding-top:18px}
+.pd-section-title [lang="hi"]{font-size:.62em;color:var(--kajal-soft)}
+.pd-craft-makers{margin-top:clamp(32px,5vw,64px)}
+.pd-craft-makers__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+@media (max-width:759px){.pd-cover{grid-template-columns:1fr}.pd-cover__art{aspect-ratio:3/2}.pd-cover__intro{font-size:17px}}
+
+/* the morph: the art keeps its crop while its box grows (both snapshots fill the moving box) */
+::view-transition-old(pd-shared),::view-transition-new(pd-shared){height:100%;width:100%;object-fit:cover;overflow:clip}
+::view-transition-group(pd-shared){animation-duration:.55s}
+/* arrival from a menu card: title, then the rest of the intro, then the page rise in */
+@keyframes pd-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pd-fade{from{opacity:0}to{opacity:1}}
+[data-pd-arrive="cover"] .pd-cover__kind,[data-pd-arrive="cover"] .pd-cover__title,[data-pd-arrive="cover"] .pd-cover__title-hi{animation:pd-rise .4s .12s cubic-bezier(.2,.7,.2,1) both}
+[data-pd-arrive="cover"] .pd-cover__more{animation:pd-fade .5s .38s ease both}
+[data-pd-arrive="cover"] .pd-main > :not(.pd-cover){animation:pd-rise .5s .5s cubic-bezier(.2,.7,.2,1) both}
+.pd-ghost::before,.pd-ghost::after{transition:none}
+@media (prefers-reduced-motion:reduce){[data-pd-arrive] *{animation:none!important}}
+/* the open menu leaves quickly so the growing picture is what the eye follows */
+[data-pd-vt="shared"]::view-transition-old(pd-shell){animation:pd-vt-out .14s ease both}
+[data-pd-vt="shared"]::view-transition-new(pd-shell){animation:none}
+@keyframes pd-vt-out{to{opacity:0}}

@@ -4,6 +4,7 @@
  * @var array $attributes
  */
 use PD\Blocks\Components;
+use PD\Blocks\Menu;
 use PD\Blocks\Route;
 use PD\Blocks\State;
 
@@ -24,6 +25,11 @@ $nav = apply_filters(
 );
 $ctx      = Route::context( $mode );
 $cart_url = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' );
+$menu     = 'full' === $mode ? Menu::items() : array();
+$groups   = array(
+	'crafts' => array( 'Collections', 'संग्रह' ),
+	'makers' => array( 'Makers and works', 'कारीगर और कृतियाँ' ),
+);
 ?>
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'pd-shell' ) ); ?>
 	data-mode="<?php echo esc_attr( $mode ); ?>"
@@ -59,13 +65,43 @@ $cart_url = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url(
 				data-wp-interactive="pd/bag"
 				data-wp-bind--aria-label="state.countLabel"
 				data-pd-vt="bag"><?php esc_html_e( 'Bag', 'pd-blocks' ); ?>&nbsp;<span class="pd-bagc" aria-hidden="true" data-wp-text="state.count" data-wp-class--is-bump="state.bump">0</span></a>
-			<button class="pd-iconbtn pd-menubtn" id="pd-shell-menu-btn" type="button" aria-controls="pd-shell-nav" aria-expanded="false"
+			<a class="pd-iconbtn pd-menubtn" id="pd-shell-menu-btn" href="#pd-menu" role="button" aria-controls="pd-menu" aria-expanded="false"
 				data-wp-bind--aria-expanded="state.menuOpen"
-				data-wp-on--click="actions.toggleMenu"
-				data-wp-text="state.menuLabel">Menu</button>
+				data-wp-on--click="actions.toggleMenu"><?php echo Components::motif( 'lotus', 'pd-motif pd-menubtn__mark' ); // phpcs:ignore WordPress.Security.EscapeOutput ?><span data-wp-text="state.menuLabel">Menu</span></a>
 		</div>
 		<div class="pd-progress" aria-hidden="true" data-wp-class--is-on="pd/navigation::state.progressVisible"></div>
 	</header>
+	<?php if ( 'full' === $mode && $menu ) : ?>
+	<nav class="pd-menu" id="pd-menu" aria-label="<?php esc_attr_e( 'Crafts and makers', 'pd-blocks' ); ?>"
+		data-wp-class--is-open="state.menuOpen">
+		<div class="pd-menu__inner">
+			<?php foreach ( $groups as $group => $label ) : ?>
+				<?php $list = array_filter( $menu, static fn( $i ) => ( $i['group'] ?? 'crafts' ) === $group ); ?>
+				<?php if ( ! $list ) { continue; } ?>
+				<section class="pd-menu__group" aria-labelledby="pd-menu-<?php echo esc_attr( $group ); ?>">
+					<h2 class="pd-menu__label" id="pd-menu-<?php echo esc_attr( $group ); ?>"><span><?php echo esc_html( $label[0] ); ?></span> <span lang="hi"><?php echo esc_html( $label[1] ); ?></span></h2>
+					<ul class="pd-menu__grid" role="list">
+						<?php foreach ( $list as $item ) : ?>
+						<li data-pd-entity="menu" data-pd-entity-id="<?php echo esc_attr( $item['id'] ); ?>" data-accent="<?php echo esc_attr( Components::accent( (string) $item['accent'] ) ); ?>">
+							<a class="pd-menucard" href="<?php echo esc_url( $item['href'] ); ?>" data-pd-from-menu data-pd-focus-id="menu-<?php echo esc_attr( $item['id'] ); ?>"
+								data-wp-interactive="pd/navigation" <?php echo wp_interactivity_data_wp_context( array( 'href' => esc_url_raw( $item['href'] ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								data-wp-bind--aria-current="state.ariaCurrent">
+								<?php echo Components::illustration( $item, (string) $item['id'], false, false, 'pd-menucard__art' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<span class="pd-menucard__words">
+									<span class="pd-menucard__title"><?php echo esc_html( $item['en'] ); ?></span>
+									<?php if ( $item['hi'] ) : ?><span class="pd-menucard__title-hi" lang="hi"><?php echo esc_html( $item['hi'] ); ?></span><?php endif; ?>
+									<?php if ( $item['teaser'] ) : ?><span class="pd-menucard__teaser"><?php echo esc_html( $item['teaser'] ); ?></span><?php endif; ?>
+								</span>
+							</a>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+				</section>
+			<?php endforeach; ?>
+			<p class="pd-menu__close"><a class="pd-btn pd-btn--text" href="#" data-wp-on--click="actions.closeMenuAndReturn"><?php esc_html_e( 'Close menu', 'pd-blocks' ); ?></a></p>
+		</div>
+	</nav>
+	<?php endif; ?>
 	<div class="pd-shell__ctx" id="pd-shell-ctx" data-wp-class--is-search="state.searchOpen">
 		<div class="pd-ctx" data-wp-interactive="pd/shell" data-wp-router-region="pd-context" data-wp-bind--hidden="state.searchOpen">
 			<?php if ( $ctx['maker'] ) : ?>

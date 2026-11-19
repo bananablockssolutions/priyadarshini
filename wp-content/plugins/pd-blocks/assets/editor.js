@@ -34,7 +34,7 @@
 			);
 		};
 
-	[ 'pd/app-shell', 'pd/work-card', 'pd/work-gallery', 'pd/buy-box', 'pd/artisan-card', 'pd/follow-button' ].forEach( ( name ) => {
+	[ 'pd/app-shell', 'pd/work-card', 'pd/work-gallery', 'pd/buy-box', 'pd/artisan-card', 'pd/follow-button', 'pd/cover', 'pd/craft-makers' ].forEach( ( name ) => {
 		if ( wp.blocks.getBlockType( name ) && wp.blocks.getBlockType( name ).edit ) {
 			return;
 		}

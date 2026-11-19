@@ -54,12 +54,12 @@ function fetchPage( path ) {
 	return promise;
 }
 
-function snapshot() {
+function snapshot( source = null, extra = {} ) {
 	try {
-		const el = document.activeElement;
+		const el = source?.closest?.( '[data-pd-focus-id]' ) ? source : document.activeElement;
 		const focus = el?.closest?.( '[data-pd-focus-id]' )?.dataset.pdFocusId || '';
 		const key = SNAP + pathOf( window.location.href );
-		sessionStorage.setItem( key, JSON.stringify( { y: window.scrollY, focus } ) );
+		sessionStorage.setItem( key, JSON.stringify( { y: window.scrollY, focus, ...extra } ) );
 		const list = JSON.parse( sessionStorage.getItem( 'pd.snaps' ) || '[]' ).filter( ( k ) => k !== key );
 		list.push( key );
 		while ( list.length > KEEP ) {
@@ -128,6 +128,46 @@ function outline( el ) {
 	setTimeout( () => el.classList.remove( 'pd-arrived' ), 1000 );
 }
 
+/** The shell's menu is closed inside the transition's update, so the new snapshot already shows it closed. */
+function closeMenuNow() {
+	store( 'pd/shell' ).state.menuOpen = false;
+	document.getElementById( 'pd-menu' )?.classList.remove( 'is-open' );
+}
+
+/** After arriving from a menu card: the cover is in place, then the title, the rest of the intro and the page rise in. */
+function arrive() {
+	const root = document.documentElement;
+	root.dataset.pdArrive = 'cover';
+	setTimeout( () => delete root.dataset.pdArrive, 1400 );
+}
+
+/**
+ * Back from a page opened from the menu: the menu reopens and the cover flies back into its card. The router renders
+ * Back on its own (no view transition), so this is a small hand-made flight: a copy of the card's art travels from
+ * where the cover was to where the card is, re-cropping as it goes, then the real card shows again.
+ */
+function flyBack( fromRect, toEl ) {
+	const to = toEl.getBoundingClientRect();
+	if ( ! to.width || ! fromRect.width ) {
+		return;
+	}
+	const ghost = toEl.cloneNode( true );
+	ghost.removeAttribute( 'data-pd-vt' );
+	ghost.setAttribute( 'aria-hidden', 'true' );
+	ghost.classList.add( 'pd-ghost' );
+	Object.assign( ghost.style, { position: 'fixed', margin: '0', zIndex: '60', pointerEvents: 'none', left: '0', top: '0' } );
+	document.body.appendChild( ghost );
+	toEl.style.visibility = 'hidden';
+	const box = ( r ) => ( { transform: `translate(${ r.left }px, ${ r.top }px)`, width: `${ r.width }px`, height: `${ r.height }px` } );
+	ghost
+		.animate( [ box( fromRect ), box( to ) ], { duration: 450, easing: 'cubic-bezier(.6,.05,.2,1)', fill: 'forwards' } )
+		.finished.catch( () => {} )
+		.finally( () => {
+			ghost.remove();
+			toEl.style.visibility = '';
+		} );
+}
+
 const { state, actions } = store( 'pd/navigation', {
 	state: {
 		get isCurrent() {
@@ -151,7 +191,8 @@ const { state, actions } = store( 'pd/navigation', {
 			const target = new URL( href, window.location.href );
 			const path = target.pathname + target.search;
 			const mine = ++navToken;
-			snapshot();
+			const fromMenu = !! source?.closest?.( '[data-pd-from-menu]' );
+			snapshot( source, fromMenu ? { menu: true } : {} );
 			if ( 'scrollRestoration' in history ) {
 				history.scrollRestoration = 'manual';
 			}
@@ -187,6 +228,9 @@ const { state, actions } = store( 'pd/navigation', {
 			const shared = sharedSource( source );
 			let arrived = null;
 			const swap = async () => {
+				if ( fromMenu ) {
+					closeMenuNow();
+				}
 				await router.actions.navigate( target.href, { html, force: true, loadingAnimation: false, screenReaderAnnouncement: false } );
 				await settled( path );
 				if ( shared ) {
@@ -204,6 +248,9 @@ const { state, actions } = store( 'pd/navigation', {
 					}
 					const vt = document.startViewTransition( swap );
 					yield vt.updateCallbackDone;
+					if ( fromMenu && arrived ) {
+						arrive();
+					}
 					vt.finished.finally( () => {
 						if ( arrived ) {
 							arrived.style.viewTransitionName = '';
@@ -299,12 +346,27 @@ const { state, actions } = store( 'pd/navigation', {
 			};
 			const onOut = () => clearTimeout( hoverTimer );
 			const onPop = async () => {
-				// The router renders the earlier page from its own copy; we restore scroll and the triggering control.
+				// The router renders the earlier page from its own copy; we restore scroll, the menu if the page was left
+				// from it, and the triggering control. The cover is measured now, before the router replaces it.
+				const cover = main()?.querySelector( '.pd-cover [data-pd-vt-dest]' );
+				const coverId = cover?.dataset.pdVt || '';
+				const coverRect = cover?.getBoundingClientRect();
 				const path = pathOf( window.location.href );
 				await settled( path );
 				state.url = window.location.href;
 				const snap = readSnapshot( path );
 				window.scrollTo( 0, snap?.y || 0 );
+				if ( snap?.menu ) {
+					await sleep( 40 ); // after the shell has reset its UI for the new route
+					store( 'pd/shell' ).state.menuOpen = true;
+					await new Promise( ( r ) => requestAnimationFrame( () => requestAnimationFrame( r ) ) );
+					const card = coverId && document.querySelector( `#pd-menu [data-pd-vt="${ CSS.escape( coverId ) }"]` );
+					if ( card && coverRect && motionOK() ) {
+						flyBack( coverRect, card );
+					} else if ( card ) {
+						outline( card );
+					}
+				}
 				const el = snap?.focus && document.querySelector( `[data-pd-focus-id="${ CSS.escape( snap.focus ) }"]` );
 				if ( el ) {
 					( el.matches( 'a,button,input,select,textarea,[tabindex]' ) ? el : el.querySelector( 'a,button' ) )?.focus( { preventScroll: true } );

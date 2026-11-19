@@ -19,7 +19,9 @@ const { state, actions } = store( 'pd/shell', {
 		},
 	},
 	actions: {
-		toggleMenu() {
+		/** The Menu control is a link to #pd-menu, so without JavaScript the panel opens with :target. */
+		toggleMenu( event ) {
+			event?.preventDefault();
 			state.menuOpen = ! state.menuOpen;
 			if ( state.menuOpen ) {
 				state.searchOpen = false;
@@ -27,6 +29,11 @@ const { state, actions } = store( 'pd/shell', {
 		},
 		closeMenu() {
 			state.menuOpen = false;
+		},
+		closeMenuAndReturn( event ) {
+			event?.preventDefault();
+			state.menuOpen = false;
+			requestAnimationFrame( () => ref( '#pd-shell-menu-btn' )?.focus() );
 		},
 		/** Search opens in the context row (same 44px), so nothing below moves. The link still works without JavaScript. */
 		openSearch( event ) {
@@ -54,7 +61,7 @@ const { state, actions } = store( 'pd/shell', {
 		},
 		/** A press outside the open menu closes it. */
 		onDocumentClick( event ) {
-			if ( state.menuOpen && ! event.target.closest( '.pd-shell__bar' ) ) {
+			if ( state.menuOpen && ! event.target.closest( '.pd-shell__bar, .pd-menu' ) ) {
 				state.menuOpen = false;
 			}
 		},
