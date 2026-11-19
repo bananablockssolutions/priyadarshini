@@ -63,7 +63,7 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( await p.evaluate( () => window.__marker === 1 ), 'artisan page opened in place' );
 		ok( /Meera Devi/.test( await p.locator( '.pd-ctx__text' ).textContent() ), 'context row shows the maker' );
 		ok( await p.locator( '.pd-ctx .pd-seal[data-accent="gulabi"]' ).count() === 1, 'context row carries the maker Seal' );
-		ok( await p.locator( '#pd-main .pd-work-card' ).count() === 3, 'works shelf lists only this maker\'s 3 works', String( await p.locator( '#pd-main .pd-work-card' ).count() ) );
+		ok( await p.locator( '#pd-main .pd-work-card' ).count() === 6, 'works shelf lists only this maker\'s 6 works', String( await p.locator( '#pd-main .pd-work-card' ).count() ) );
 		ok( await p.evaluate( () => window.scrollY ) === 0, 'new page starts at the top' );
 
 		await p.click( '.pd-work-card__link:has-text("Fish and Lotus Pond")' );
@@ -149,10 +149,14 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( barW, 'shell bar fits a 390px screen' );
 		await p.click( '#pd-shell-menu-btn' );
 		ok( await p.locator( '#pd-menu' ).isVisible(), 'Menu opens the illustrated menu' );
-		ok( ( await p.locator( '#pd-shell-menu-btn' ).textContent() ).trim() === 'Close', 'Menu button reads Close' );
+		ok( ( await p.getAttribute( '#pd-shell-menu-btn', 'aria-label' ) ) === 'Close menu', 'menu icon is labelled Close menu' );
+		await p.waitForTimeout( 900 );
 		await p.keyboard.press( 'Escape' );
+		await p.waitForTimeout( 800 );
 		ok( ! ( await p.locator( '#pd-menu' ).isVisible() ), 'Escape closes the menu' );
 		ok( await p.evaluate( () => document.activeElement?.id === 'pd-shell-menu-btn' ), 'focus returns to the Menu button' );
+		await p.setViewportSize( { width: 1280, height: 800 } ); // search lives in the header on wider screens; on a phone it is the Explore tab
+		await p.waitForTimeout( 200 );
 		const h0 = await p.evaluate( () => document.querySelector( '.pd-shell' ).offsetHeight );
 		await p.click( '#pd-shell-search-btn' );
 		await p.waitForTimeout( 100 );
@@ -169,6 +173,7 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( await p.evaluate( () => window.__marker === 1 ), 'search results open in place' );
 		ok( ( await p.content() ).includes( 'Sikki Elephant' ), 'search finds the work' );
 		ok( ! ( await p.locator( '.pd-shell__search' ).isVisible() ), 'search closes after navigation (reset rule)' );
+		await p.setViewportSize( { width: 390, height: 844 } );
 		await p.goto( BASE + '/shop/?pd-nosplash' );
 		await p.waitForTimeout( 300 );
 		await p.mouse.wheel( 0, 600 );

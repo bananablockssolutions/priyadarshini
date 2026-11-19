@@ -47,8 +47,7 @@
 .pd-bagc{display:inline-block;min-width:1.4em;text-align:center;font-variant-numeric:tabular-nums;border:1.5px solid var(--kajal);padding:0 6px;background:var(--card);font-size:13px;color:var(--kajal);text-decoration:none}
 .pd-bagc.is-bump{animation:pd-bump .3s}
 @keyframes pd-bump{50%{transform:scale(1.35)}}
-.pd-menubtn{gap:6px}
-.pd-menubtn__mark{width:26px;height:20px;flex:none;--accent:var(--gulabi)}
+
 .pd-progress{position:absolute;left:0;right:0;bottom:-3px;height:3px;opacity:0;background:repeating-linear-gradient(90deg,var(--kajal) 0 14px,transparent 14px 24px);background-size:48px 3px;pointer-events:none}
 .pd-progress.is-on{opacity:1;animation:pd-slide3 1s linear infinite}
 @keyframes pd-slide3{to{background-position:48px 0}}
@@ -61,7 +60,7 @@
 .pd-shell__search{display:flex;gap:8px;align-items:center;width:100%}
 .pd-shell__search[hidden]{display:none}
 .pd-shell__search .pd-input{min-height:36px;padding:4px 10px;flex:1;min-width:0}
-.pd-shell[data-mode="calm"] .pd-shell__nav,.pd-shell[data-mode="calm"] #pd-shell-search-btn,.pd-shell[data-mode="calm"] .pd-menubtn{visibility:hidden}
+.pd-shell[data-mode="calm"] .pd-shell__nav,.pd-shell[data-mode="calm"] #pd-shell-search-btn,.pd-shell[data-mode="calm"] .pd-burger{visibility:hidden}
 .pd-shell[data-mode="calm"] .pd-shell__ctx{border-bottom:1.5px solid var(--kajal)}
 @media (min-width:760px){.pd-shell__bar,.pd-shell__ctx{padding:0 48px}}
 @media (max-width:759px){
@@ -70,7 +69,6 @@
 	.pd-brandmark__en{font-size:20px}
 	.pd-brandmark__hi{display:none}
 	.pd-shell__nav{display:none}
-	.pd-menubtn__mark{display:none}
 }
 @media (max-width:399px){.pd-shell__bar{padding:0 12px;gap:0 8px}.pd-brandmark__en{font-size:20px}.pd-brandmark .pd-motif{width:36px}.pd-brandmark__hi{display:none}}
 
@@ -170,69 +168,123 @@
 .pd-artisan-card p{margin:0}
 .pd-follow{margin:0}
 
-/* ---------- illustration: menu card art that becomes a page cover ---------- */
-.pd-ill{position:relative;display:block;overflow:hidden;aspect-ratio:3/2;background:var(--kagaz-gehra);border:2px solid var(--kajal);border-radius:2px 3px 2px 3px/3px 2px 3px 2px;color:var(--kajal)}
-.pd-ill::before{content:"";position:absolute;inset:5px;border:1.5px solid var(--kajal);pointer-events:none;z-index:2}
-.pd-ill::after{content:"";position:absolute;inset:8px;z-index:2;pointer-events:none;background:var(--kajal);
-	-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M0 0h16L8 9z'/></svg>") top left/16px 9px repeat-x,url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M8 0l8 9H0z'/></svg>") bottom left/16px 9px repeat-x;
-	mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M0 0h16L8 9z'/></svg>") top left/16px 9px repeat-x,url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='9'><path d='M8 0l8 9H0z'/></svg>") bottom left/16px 9px repeat-x}
-.pd-ill__img,.pd-ill__scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.pd-ill__ground{fill:color-mix(in srgb,var(--accent) 16%,var(--kagaz))}
-.pd-ill__halo{fill:color-mix(in srgb,var(--accent) 34%,var(--card));stroke:var(--kajal);stroke-width:2.5}
-.pd-ill__ring{fill:none;stroke:var(--kajal);stroke-width:3;stroke-dasharray:1 11;stroke-linecap:round}
-.pd-ill__ring2{fill:none;stroke:var(--accent);stroke-width:6;stroke-dasharray:18 10}
-.pd-ill__dot{fill:var(--accent);stroke:var(--kajal);stroke-width:2}
-.pd-ill__dot2{fill:var(--card);stroke:var(--kajal);stroke-width:2}
-.pd-ill__water{fill:none;stroke:var(--kajal);stroke-width:2.4;stroke-linecap:round}
 
-/* ---------- menu: a panel of illustrated cards under the shell ---------- */
-.pd-menu{display:none;position:absolute;left:0;right:0;top:100%;z-index:40;max-height:calc(100vh - var(--pd-shell-h) - 8px);max-height:calc(100dvh - var(--pd-shell-h) - 8px);overflow:auto;overscroll-behavior:contain;background:var(--kagaz) var(--pd-paper,none);border-bottom:5px double var(--kajal);box-shadow:0 18px 30px -18px rgba(42,30,23,.45)}
-.pd-menu:target,.pd-menu.is-open{display:block}
-.pd-menu__inner{max-width:1240px;margin:0 auto;padding:20px 16px 12px;display:grid;gap:22px}
-.pd-menu__label{margin:0 0 10px;font:700 13px/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline;border-bottom:1.5px solid var(--kajal);padding-bottom:6px}
-.pd-menu__label [lang="hi"]{font:400 15px/1 var(--display);letter-spacing:0;text-transform:none;color:var(--kajal-soft)}
-.pd-menu__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;margin:0;padding:0;list-style:none}
-.pd-menucard{display:grid;gap:10px;color:inherit;text-decoration:none;height:100%;padding:8px;border:2px solid transparent;border-radius:3px}
-.pd-menucard:hover{background:var(--card);border-color:var(--kajal);box-shadow:3px 3px 0 var(--kajal)}
-.pd-menucard:hover .pd-menucard__title{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
-.pd-menucard[aria-current="page"]{border-color:var(--kajal);border-style:double;border-width:4px;padding:6px}
-.pd-menucard__words{display:grid;gap:2px}
-.pd-menucard__title{font:24px/1.15 var(--display)}
-.pd-menucard__title-hi{font:17px/1.4 var(--display);color:var(--accent);filter:brightness(.75)}
-.pd-menucard__teaser{font-size:15px;line-height:1.45;color:var(--kajal-soft)}
-.pd-menu__close{margin:0;text-align:center}
-@media (max-width:759px){.pd-menu__grid{grid-template-columns:1fr 1fr;gap:10px}.pd-menucard{padding:4px}.pd-menucard__title{font-size:19px}.pd-menucard__teaser{font-size:14px}}
-@media (max-width:399px){.pd-menu__grid{grid-template-columns:1fr}.pd-menucard{grid-template-columns:120px 1fr;align-items:center}}
+/* ================= mobile shell and the menu-to-page flow (approved prototype, 19 Nov) =================
+   Mobile only (below 760px). Header: logo, wordmark, Bag, three-line menu icon. Bottom bar: Home, Explore,
+   Artists, Profile. The menu is a panel of product types; a row grows into the type page (navigation-store.js). */
+.pd-burger,.pd-menu,.pd-dropline,.pd-tabs,.pd-brandmark__logo,.pd-baglink__icon{display:none}
+@media (max-width:759px){
+	:root{--pd-shell-h:64px;--pd-tabs-h:64px}
+	body{padding-bottom:var(--pd-tabs-h)}
+	.pd-shell__bar{height:64px;padding:0 6px 0 16px;gap:0 6px;border-bottom:2px solid var(--kajal)}
+	.pd-shell__ctx,.pd-shell__nav,#pd-shell-search-btn,.pd-brandmark .pd-motif:not(.pd-brandmark__logo){display:none}
+	.pd-brandmark{gap:10px;min-width:0;flex:1}
+	.pd-brandmark__logo{display:block;width:34px;height:34px;flex:none}
+	.pd-brandmark__en{font-size:21px;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
+	.pd-brandmark__hi{display:none}
+	.pd-shell__tools{gap:0}
+	.pd-baglink{position:relative;width:44px;height:44px;padding:0;justify-content:center;text-decoration:none;color:var(--kajal)}
+	.pd-baglink__icon{display:block;width:24px;height:24px}
+	.pd-baglink__word{display:none}
+	.pd-baglink .pd-bagc{position:absolute;right:4px;top:5px;min-width:17px;height:17px;padding:0 4px;font:700 11px/17px var(--body);border-radius:999px;background:var(--kajal);color:var(--kagaz);border:0}
+	.pd-baglink[aria-label="Bag, 0 works"] .pd-bagc{display:none}
 
-/* ---------- page cover: the card's illustration, grown; the card's words, continued ---------- */
-.pd-cover{display:grid;gap:clamp(16px,3vw,40px);grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:center;margin-bottom:clamp(28px,5vw,56px)}
-.pd-cover__art{aspect-ratio:4/3}
-.pd-cover__text{display:grid;gap:6px;align-content:center}
-.pd-cover__kind{margin:0;font:700 13px/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline}
-.pd-cover__kind [lang="hi"]{font:400 15px/1 var(--display);letter-spacing:0;text-transform:none;color:var(--kajal-soft)}
-.pd-cover__title{margin:0;font:clamp(2.4rem,5vw,4rem)/1.05 var(--display)}
-.pd-cover__title-hi{margin:0;font:clamp(1.3rem,2.2vw,1.7rem)/1.4 var(--display);color:var(--accent);filter:brightness(.75)}
-.pd-cover__intro{display:grid;gap:10px;margin-top:10px;padding-top:14px;border-top:5px double var(--kajal);font-size:18px;line-height:1.6}
-.pd-cover__intro p{margin:0}
-.pd-cover__teaser{font-weight:600}
-.pd-section-title{font:clamp(1.6rem,3vw,2.2rem)/1.2 var(--display);margin:0 0 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;border-top:5px double var(--kajal);padding-top:18px}
-.pd-section-title [lang="hi"]{font-size:.62em;color:var(--kajal-soft)}
-.pd-craft-makers{margin-top:clamp(32px,5vw,64px)}
-.pd-craft-makers__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-@media (max-width:759px){.pd-cover{grid-template-columns:1fr}.pd-cover__art{aspect-ratio:3/2}.pd-cover__intro{font-size:17px}}
+	/* three-line icon; two lines turn into the cross with a 3D flip, the third leaves to become the menu's border */
+	.pd-burger{display:block;position:relative;width:44px;height:44px;flex:none;perspective:200px}
+	.pd-burger__l{position:absolute;left:11px;width:22px;height:2.5px;background:var(--kajal);border-radius:2px;transition:transform 420ms cubic-bezier(.3,.9,.3,1),opacity 120ms}
+	.pd-burger__l:nth-child(1){top:14px}.pd-burger__l:nth-child(2){top:21px}.pd-burger__l:nth-child(3){top:28px}
+	.pd-burger[aria-expanded="true"] .pd-burger__l:nth-child(1){transform:translateY(7px) rotateX(360deg) rotate(45deg)}
+	.pd-burger[aria-expanded="true"] .pd-burger__l:nth-child(2){transform:rotateX(-360deg) rotate(-45deg)}
+	.pd-burger.is-lent .pd-burger__l:nth-child(3),.pd-burger[aria-expanded="true"] .pd-burger__l:nth-child(3){opacity:0;transition:none}
 
-/* the morph: the art keeps its crop while its box grows (both snapshots fill the moving box) */
-::view-transition-old(pd-shared),::view-transition-new(pd-shared){height:100%;width:100%;object-fit:cover;overflow:clip}
-::view-transition-group(pd-shared){animation-duration:.55s}
-/* arrival from a menu card: title, then the rest of the intro, then the page rise in */
-@keyframes pd-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes pd-fade{from{opacity:0}to{opacity:1}}
-[data-pd-arrive="cover"] .pd-cover__kind,[data-pd-arrive="cover"] .pd-cover__title,[data-pd-arrive="cover"] .pd-cover__title-hi{animation:pd-rise .4s .12s cubic-bezier(.2,.7,.2,1) both}
-[data-pd-arrive="cover"] .pd-cover__more{animation:pd-fade .5s .38s ease both}
-[data-pd-arrive="cover"] .pd-main > :not(.pd-cover){animation:pd-rise .5s .5s cubic-bezier(.2,.7,.2,1) both}
-.pd-ghost::before,.pd-ghost::after{transition:none}
-@media (prefers-reduced-motion:reduce){[data-pd-arrive] *{animation:none!important}}
-/* the open menu leaves quickly so the growing picture is what the eye follows */
-[data-pd-vt="shared"]::view-transition-old(pd-shell){animation:pd-vt-out .14s ease both}
-[data-pd-vt="shared"]::view-transition-new(pd-shell){animation:none}
-@keyframes pd-vt-out{to{opacity:0}}
+	/* the panel: paper, two side borders, and a bottom border that is the icon's third line */
+	.pd-menu{position:fixed;left:12px;right:12px;top:calc(var(--pd-shell-h) + var(--wp-admin--admin-bar--height,0px));bottom:calc(var(--pd-tabs-h) + 10px);z-index:35}
+	.pd-menu:target,.pd-menu.is-open{display:block}
+	.pd-menu__bg{position:absolute;inset:0;background:var(--kagaz) var(--pd-paper,none)}
+	.pd-menu__side{position:absolute;top:0;bottom:0;width:2px;background:var(--kajal)}
+	.pd-menu__side.is-l{left:0}.pd-menu__side.is-r{right:0}
+	.pd-menu:target:not(.is-open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.5px;background:var(--kajal)}
+	.pd-menu__items{position:absolute;inset:0;margin:0;padding:14px 18px 18px;list-style:none;overflow:auto;overscroll-behavior:contain;perspective:900px}
+	.pd-menu__items li{border-bottom:1px dashed var(--hair)}
+	.pd-menu__items li:last-child{border-bottom:0}
+	.pd-mrow,.pd-burger,.pd-tabs a,.pd-baglink,.pd-rail{-webkit-tap-highlight-color:transparent}
+	.pd-mrow{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:center;padding:12px 4px;color:inherit;text-decoration:none;transform-origin:50% 0}
+	.pd-mrow:focus-visible{outline:2px solid var(--neel);outline-offset:2px}
+	.pd-mrow__ill{display:block;width:76px;height:76px}
+	.pd-mrow__words{display:block;min-width:0}
+	.pd-mrow__ttl{display:block;font:20px/1.15 var(--display);transform-origin:0 0}
+	.pd-mrow__dsc{display:block;margin-top:2px;font-size:14.5px;line-height:1.35;color:var(--kajal-soft);transform-origin:0 0}
+	.pd-mrow .pd-hi,.pd-tcover__ttl .pd-hi{font-size:.72em;color:var(--kajal-soft);margin-left:6px}
+	.pd-menu__nojs-close{display:none}
+	.pd-menu:target:not(.is-open) .pd-menu__nojs-close{display:block;position:absolute;right:12px;bottom:12px;font-weight:700;color:var(--neel)}
+	.pd-dropline{position:fixed;left:0;top:0;height:2.5px;background:var(--kajal);border-radius:2px;transform-origin:0 50%;z-index:45;pointer-events:none}
+	.pd-dropline.is-on{display:block}
+
+	/* bottom bar */
+	.pd-tabs{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;height:var(--pd-tabs-h);z-index:40;background:var(--kagaz) var(--pd-paper,none);border-top:2px solid var(--kajal);padding-bottom:env(safe-area-inset-bottom)}
+	.pd-tabs a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:600 11px var(--body);color:var(--kajal-soft);text-decoration:none}
+	.pd-tabs svg{width:24px;height:24px}
+	.pd-tabs a[aria-current="page"]{color:var(--kajal)}
+	.pd-tabs a[aria-current="page"]::after{content:"";position:absolute;left:28%;right:28%;bottom:6px;border-bottom:4px double var(--kajal)}
+	.pd-shell[data-mode="calm"] ~ * .pd-tabs{display:none}
+}
+.pd-drawing{display:block;width:100%;height:100%}
+.pd-drawing--img{object-fit:contain}
+.pd-drawing .pd-motif{width:80%;height:80%;margin:10%}
+
+/* ---------- type page head: the menu row, grown ---------- */
+.pd-tcover{margin-bottom:8px}
+.pd-tcover__top{display:grid;grid-template-columns:46% 1fr;gap:14px;align-items:start}
+.pd-tcover__img{position:relative;aspect-ratio:1/1;padding:12px}
+.pd-tcover__frame{position:absolute;inset:0;background:var(--card);border:2px solid var(--kajal);border-radius:3px 4px 2px 3px;box-shadow:3px 3px 0 var(--kajal)}
+.pd-tcover__ill{position:relative;display:block;width:100%;height:100%;transform-origin:0 0}
+.pd-tcover__ttl{margin:2px 0 0;font:31px/1.08 var(--display);transform-origin:0 0}
+.pd-tcover__ttl .pd-hi{font-size:.6em}
+.pd-tcover__dsc{margin:8px 0 0;font-size:15.5px;line-height:1.35;transform-origin:0 0}
+.pd-tcover__more{margin:14px 0 0;font-size:15.5px;line-height:1.45}
+.pd-tcover__more p{margin:0 0 8px}
+@media (min-width:760px){.pd-tcover__top{grid-template-columns:minmax(0,420px) 1fr;gap:40px}.pd-tcover__ttl{font-size:clamp(2.6rem,4vw,3.6rem)}.pd-tcover__dsc,.pd-tcover__more{font-size:18px;max-width:40em}}
+
+/* ---------- pieces: toolbar, filters rail and sheet, compact grid or list ---------- */
+.pd-toolbar{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px;border-top:2px solid var(--kajal);padding-top:10px}
+.pd-toolbar__count{font-size:14px;color:var(--kajal-soft)}
+.pd-toolbar__views{display:flex;gap:4px}
+.pd-toolbar__views button{width:44px;height:44px;border:1.5px solid var(--kajal);background:var(--card);border-radius:3px;cursor:pointer;display:grid;place-items:center;color:var(--kajal)}
+.pd-toolbar__views button[aria-pressed="true"]{background:var(--kajal);color:var(--kagaz)}
+.pd-toolbar__views svg{width:18px;height:18px}
+.pd-shop{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.pd-shop > *{margin:0!important}
+.pd-rail{border:1.5px solid var(--kajal);border-radius:3px;background:var(--card);writing-mode:vertical-rl;transform:rotate(180deg);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 0;min-height:180px;color:var(--kajal);text-decoration:none;position:sticky;top:calc(var(--pd-shell-h) + 10px)}
+.pd-sheet{position:fixed;left:0;top:var(--pd-shell-h);bottom:var(--pd-tabs-h,0px);width:min(78%,360px);background:var(--card);border-right:2px solid var(--kajal);z-index:36;padding:18px 16px;transform:translateX(-102%);visibility:hidden;transition:transform 280ms cubic-bezier(.2,.8,.2,1),visibility 280ms;overflow:auto}
+.pd-sheet.is-open,.pd-sheet:target{transform:none;visibility:visible}
+.pd-sheet__x{position:absolute;right:10px;top:6px;font-size:26px;color:var(--kajal);text-decoration:none;min-width:44px;min-height:44px;display:grid;place-items:center}
+.pd-sheet__title{font:22px var(--display);margin:0 0 12px}
+.pd-sheet label{display:flex;gap:10px;align-items:center;min-height:44px;border-bottom:1px dashed var(--hair);font-size:15px}
+.pd-sheet__actions{display:flex;gap:8px;align-items:center;margin:16px 0 0}
+.pd-shop .wc-block-product-template{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px 8px!important;margin:0!important;padding:0!important}
+.pd-shop .wc-block-product-template > li{width:auto!important;margin:0!important;list-style:none}
+@media (min-width:760px){.pd-shop .wc-block-product-template{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:24px!important}}
+/* compact card inside the type page: picture, name, maker, price */
+.pd-shop .pd-work-card .pd-plate{border-width:1.5px}
+.pd-shop .pd-work-card .pd-plate::before{display:none}
+.pd-shop .pd-catno,.pd-shop .pd-work-card__title-hi,.pd-shop .pd-work-card__meta,.pd-shop .pd-format,.pd-shop .pd-seal{display:none}
+.pd-shop .pd-work-card__link{gap:5px}
+.pd-shop .pd-work-card__label{border:0;padding:0;gap:0}
+.pd-shop .pd-work-card__title{font:600 12.5px/1.2 var(--body)}
+.pd-shop .pd-maker-line{gap:0}
+.pd-shop .pd-maker-line a{font:12.5px/1.2 'Kalam',var(--body);font-weight:400;color:var(--kajal-soft);text-decoration:none}
+.pd-shop .pd-price{font-size:12.5px}
+.pd-shop .pd-work-card,.pd-shop .pd-work-card__foot{gap:4px}
+[data-pd-view="list"] .pd-shop .wc-block-product-template{grid-template-columns:1fr!important;gap:10px!important}
+[data-pd-view="list"] .pd-shop .pd-work-card{grid-template-columns:84px 1fr;column-gap:12px;row-gap:2px;align-items:center;align-content:center;border-bottom:1px dashed var(--hair);padding-bottom:10px}
+[data-pd-view="list"] .pd-shop .pd-work-card__link{display:contents}
+[data-pd-view="list"] .pd-shop .pd-plate{grid-column:1;grid-row:1 / span 3}
+[data-pd-view="list"] .pd-shop .pd-work-card > *,[data-pd-view="list"] .pd-shop .pd-work-card__label{grid-column:2}
+[data-pd-view="list"] .pd-shop .pd-work-card__title{font-size:15px}
+[data-pd-view="list"] .pd-shop .pd-maker-line a,[data-pd-view="list"] .pd-shop .pd-price{font-size:14px}
+
+/* arrival: what comes after the grown row waits, then rises in (the script staggers it) */
+[data-pd-arrive="type"] #pd-main [data-pd-fly]{visibility:hidden}
+[data-pd-arrive="type"] #pd-main [data-pd-reveal],[data-pd-arrive="type"] #pd-main .pd-shop .wc-block-product-template > li{opacity:0}
+.pd-fly{position:fixed;left:0;top:0;margin:0;z-index:50;pointer-events:none;transform-origin:0 0}
+@media (prefers-reduced-motion:reduce){.pd-burger__l,.pd-sheet{transition:none}}

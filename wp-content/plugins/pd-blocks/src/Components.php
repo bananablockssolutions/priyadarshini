@@ -19,6 +19,36 @@ final class Components {
 		'studio'  => '0 0 100 70',
 	);
 
+	/** Product-type drawings from the approved menu prototype (placeholders until the owner's illustrations arrive). */
+	private const DRAWINGS = array(
+		'kurti' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M42 16 L53 12 Q60 22 67 12 L78 16 L102 36 L91 49 L82 42 L85 106 L35 106 L38 42 L29 49 L18 36 Z" fill="#D9467A" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><path d="M53 12 Q60 30 67 12" fill="#FFFAF0" stroke="#2A1E17" stroke-width="2"/><path d="M36 92 L84 92" stroke="#2A1E17" stroke-width="2"/><path d="M36 99 h48" stroke="#E9A30C" stroke-width="5"/><path d="M48 58 Q60 46 72 58 Q60 70 48 58Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2"/><path d="M48 58 L42 53 L42 63Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2" stroke-linejoin="round"/><circle cx="66" cy="57" r="1.8" fill="#2A1E17"/><g fill="#2A1E17"><circle cx="44" cy="80" r="1.6"/><circle cx="52" cy="80" r="1.6"/><circle cx="60" cy="80" r="1.6"/><circle cx="68" cy="80" r="1.6"/><circle cx="76" cy="80" r="1.6"/></g></svg>',
+		'saree' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M18 34 H102 V96 H18 Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><path d="M18 42 H102 M18 88 H102" stroke="#C8321F" stroke-width="7"/><path d="M18 34 H102 M18 96 H102" stroke="#2A1E17" stroke-width="2.5"/><path d="M40 46 V84 M52 46 V84 M64 46 V84" stroke="#2A1E17" stroke-width="1.4" stroke-dasharray="3 4"/><path d="M70 34 L102 34 L102 74 Z" fill="#D9467A" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><g fill="#FFFAF0" stroke="#2A1E17" stroke-width="1.2"><circle cx="90" cy="44" r="3"/><circle cx="96" cy="56" r="2.4"/><circle cx="84" cy="40" r="2"/></g><path d="M22 22 Q60 10 98 22" fill="none" stroke="#2A1E17" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/></svg>',
+		'dupatta' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M14 38 Q40 20 62 36 T108 34 L108 62 Q84 64 62 62 T14 66 Z" fill="#3E7B3A" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 52 Q40 34 62 50 T108 48" fill="none" stroke="#FFFAF0" stroke-width="2" stroke-dasharray="4 4"/><g stroke="#2A1E17" stroke-width="2" stroke-linecap="round"><path d="M18 68 v10 M26 67 v12 M34 66 v10 M42 65 v12 M50 64 v10 M58 63 v12 M66 63 v10 M74 63 v12 M82 64 v10 M90 64 v12 M98 63 v10 M106 63 v12"/></g><g fill="#E9A30C" stroke="#2A1E17" stroke-width="1.3"><path d="M34 42 l4 -6 l4 6 l-4 6z"/><path d="M80 42 l4 -6 l4 6 l-4 6z"/><path d="M57 46 l4 -6 l4 6 l-4 6z"/></g><path d="M20 96 Q60 84 100 96" fill="none" stroke="#2A1E17" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/></svg>',
+		'wallart' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><rect x="16" y="14" width="88" height="92" rx="3" fill="#FFFAF0" stroke="#2A1E17" stroke-width="2.5"/><rect x="23" y="21" width="74" height="78" fill="none" stroke="#2A1E17" stroke-width="1.6"/><path d="M23 27 h74 M23 93 h74" stroke="#C8321F" stroke-width="4" stroke-dasharray="4 3"/><path d="M38 60 Q60 36 84 60 Q60 84 38 60Z" fill="#E26A1B" stroke="#2A1E17" stroke-width="2.2"/><path d="M38 60 L28 50 L28 70 Z" fill="#E26A1B" stroke="#2A1E17" stroke-width="2.2" stroke-linejoin="round"/><circle cx="74" cy="56" r="3" fill="#FFFAF0" stroke="#2A1E17" stroke-width="1.5"/><path d="M50 52 q4 8 0 16 M58 48 q5 12 0 24 M66 50 q4 10 0 20" fill="none" stroke="#2A1E17" stroke-width="1.6"/></svg>',
+		'basket' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M24 44 L32 98 Q60 108 88 98 L96 44 Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="60" cy="44" rx="36" ry="11" fill="#E9A30C" stroke="#2A1E17" stroke-width="2.5"/><path d="M26 56 Q60 66 94 56 M28 68 Q60 78 92 68 M30 80 Q60 90 90 80" fill="none" stroke="#2A1E17" stroke-width="1.5"/><path d="M30 61 l6 4 l6 -4 l6 4 l6 -4 l6 4 l6 -4 l6 4 l6 -4 l6 4 l6 -4" fill="none" stroke="#C8321F" stroke-width="2.4" stroke-linejoin="round"/><ellipse cx="60" cy="44" rx="24" ry="6" fill="none" stroke="#2A1E17" stroke-width="1.4"/><path d="M54 33 Q60 22 66 33" fill="none" stroke="#2A1E17" stroke-width="2.5"/></svg>',
+	);
+
+	public const DRAWING_KEYS = array( 'kurti', 'saree', 'dupatta', 'wallart', 'basket' );
+
+	/**
+	 * The picture of a menu row, which the type page then shows as its featured image: the category's own image
+	 * when one is set, otherwise a placeholder drawing (or a motif for other scenes). No frame: the page adds one.
+	 */
+	public static function drawing( array $item, bool $large = false ): string {
+		$cover = (int) ( $item['cover'] ?? 0 );
+		if ( $cover ) {
+			$img = wp_get_attachment_image( $cover, $large ? 'large' : 'thumbnail', false, array( 'alt' => '', 'class' => 'pd-drawing pd-drawing--img', 'loading' => 'eager', 'decoding' => 'async' ) );
+			if ( $img ) {
+				return $img;
+			}
+		}
+		$scene = (string) ( $item['scene'] ?? '' );
+		if ( isset( self::DRAWINGS[ $scene ] ) ) {
+			return self::DRAWINGS[ $scene ];
+		}
+		return '<span class="pd-drawing" data-accent="' . esc_attr( self::accent( (string) ( $item['accent'] ?? 'gulabi' ) ) ) . '">' . self::motif( $scene ?: 'fish' ) . '</span>';
+	}
+
 	public const ACCENTS = array( 'gulabi', 'kusum', 'neel', 'patta', 'sindoor', 'haldi' ); // BRD-08, final set
 
 	public static function accent( string $a ): string {

@@ -19,7 +19,7 @@ final class Meta {
 	public const ORDER   = 'pd_menu_order';
 	public const HIDDEN  = 'pd_menu_hidden';
 
-	public const SCENES  = array( 'fish', 'lotus', 'leaf', 'peacock', 'sun', 'person', 'studio' );
+	public const SCENES  = array( 'kurti', 'saree', 'dupatta', 'wallart', 'basket', 'fish', 'lotus', 'leaf', 'peacock', 'sun', 'person', 'studio' );
 	public const ACCENTS = array( 'gulabi', 'kusum', 'neel', 'patta', 'sindoor', 'haldi' );
 
 	public static function register_hooks(): void {

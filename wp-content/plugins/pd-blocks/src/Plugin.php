@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 final class Plugin {
 
 	/** Registered blocks (BLOCKS.md section 4). Grows as blocks are built. */
-	private const BLOCKS = array( 'follow-button', 'artisan-card', 'app-shell', 'routed-main', 'work-card', 'work-gallery', 'buy-box', 'cover', 'craft-makers' );
+	private const BLOCKS = array( 'follow-button', 'artisan-card', 'app-shell', 'routed-main', 'work-card', 'work-gallery', 'buy-box', 'cover', 'craft-makers', 'shop-toolbar', 'filters-rail' );
 
 	public static function boot(): void {
 		if ( ! class_exists( '\PD\Plugin' ) ) {
@@ -20,6 +20,7 @@ final class Plugin {
 		add_action( 'wp_head', array( self::class, 'splash_gate' ), 1 );
 		add_action( 'wp_footer', array( self::class, 'motif_sprite' ), 1 );
 		add_filter( 'query_loop_block_query_vars', array( self::class, 'shelf_query' ), 10, 2 );
+		add_action( 'pre_get_posts', array( self::class, 'catalogue_filters' ) );
 		State::boot();
 	}
 
@@ -77,5 +78,26 @@ final class Plugin {
 			$query['meta_query'][] = array( 'key' => '_pd_artisan_post_id', 'value' => $artisan, 'type' => 'NUMERIC' );
 		}
 		return $query;
+	}
+
+	/** Filters from pd/filters-rail on product archives: ready to ship, made on order, under a price. */
+	public static function catalogue_filters( \WP_Query $q ): void {
+		if ( is_admin() || ! $q->is_main_query() || ! ( $q->is_tax( 'product_cat' ) || $q->is_post_type_archive( 'product' ) ) ) {
+			return;
+		}
+		$avail = isset( $_GET['pd_avail'] ) ? array_intersect( (array) wp_unslash( $_GET['pd_avail'] ), array( 'ready', 'order' ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification,WordPress.Security.ValidatedSanitizedInput
+		$under = isset( $_GET['pd_under'] ) ? absint( $_GET['pd_under'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
+		$meta  = (array) $q->get( 'meta_query' );
+		if ( 1 === count( $avail ) ) {
+			$meta[] = 'order' === reset( $avail )
+				? array( 'key' => '_pd_made_on_order', 'value' => '1' )
+				: array( 'relation' => 'OR', array( 'key' => '_pd_made_on_order', 'compare' => 'NOT EXISTS' ), array( 'key' => '_pd_made_on_order', 'value' => '1', 'compare' => '!=' ) );
+		}
+		if ( $under ) {
+			$meta[] = array( 'key' => '_price', 'value' => $under, 'compare' => '<', 'type' => 'NUMERIC' );
+		}
+		if ( $meta ) {
+			$q->set( 'meta_query', $meta );
+		}
 	}
 }
