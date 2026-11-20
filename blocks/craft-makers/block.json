@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/craft-makers",
+	"title": "Makers of this craft",
+	"category": "widgets",
+	"description": "On a craft page: the artisans who practise this craft, as artisan cards.",
+	"attributes": {
+		"heading": { "type": "string", "default": "Makers of this craft" },
+		"headingHi": { "type": "string", "default": "इस शिल्प के कारीगर" }
+	},
+	"supports": { "html": false, "interactivity": true, "align": [ "wide" ] },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

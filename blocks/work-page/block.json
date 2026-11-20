@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/work-page",
+	"title": "Work page (phone)",
+	"category": "woocommerce",
+	"description": "The phone layout of a work page from the approved prototype: back link to its type, the square picture with badge, the full name, the description, colour and size, price and Buy. The work card's parts grow into these.",
+	"usesContext": [ "postId", "postType" ],
+	"supports": { "html": false, "interactivity": true, "className": true },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

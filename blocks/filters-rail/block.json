@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/filters-rail",
+	"title": "Filters rail",
+	"category": "woocommerce",
+	"description": "The vertical Filters strip beside a works grid. Opens a sheet of filters (ready to ship, made on order, price).",
+	"supports": { "html": false, "interactivity": true },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}
