@@ -63,10 +63,10 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( await p.evaluate( () => window.__marker === 1 ), 'artisan page opened in place' );
 		ok( /Meera Devi/.test( await p.locator( '.pd-ctx__text' ).textContent() ), 'context row shows the maker' );
 		ok( await p.locator( '.pd-ctx .pd-seal[data-accent="gulabi"]' ).count() === 1, 'context row carries the maker Seal' );
-		ok( await p.locator( '#pd-main .pd-work-card' ).count() === 6, 'works shelf lists only this maker\'s 6 works', String( await p.locator( '#pd-main .pd-work-card' ).count() ) );
+		ok( await p.locator( '#pd-main .pd-work-card:visible' ).count() === 6, 'works shelf lists only this maker\'s 6 works', String( await p.locator( '#pd-main .pd-work-card:visible' ).count() ) );
 		ok( await p.evaluate( () => window.scrollY ) === 0, 'new page starts at the top' );
 
-		await p.click( '.pd-work-card__link:has-text("Fish and Lotus Pond")' );
+		await p.click( '.pd-work-card__link:visible:has-text("Fish and Lotus Pond")' );
 		await p.waitForURL( '**/product/demo-fish-and-lotus-pond/' );
 		await settle( p );
 		ok( await p.evaluate( () => window.__marker === 1 ), 'work page opened in place' );

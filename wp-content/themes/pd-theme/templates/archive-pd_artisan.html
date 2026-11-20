@@ -1,5 +1,8 @@
 <!-- wp:template-part {"slug":"header","tagName":"div"} /-->
 <!-- wp:pd/routed-main {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|7","bottom":"var:preset|spacing|8"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:pd/artisan-list {"className":"pd-mob"} /-->
+<!-- wp:group {"className":"pd-desk","layout":{"type":"constrained"}} -->
+<div class="wp-block-group pd-desk">
 <!-- wp:heading {"level":1} --><h1 class="wp-block-heading">Artisans</h1><!-- /wp:heading -->
 <!-- wp:query {"queryId":2,"query":{"perPage":12,"postType":"pd_artisan","inherit":false},"layout":{"type":"default"}} -->
 <div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
@@ -9,5 +12,7 @@
 <!-- wp:paragraph --><p>New artisans are joining soon.</p><!-- /wp:paragraph -->
 <!-- /wp:query-no-results --></div>
 <!-- /wp:query -->
+</div>
+<!-- /wp:group -->
 <!-- /wp:pd/routed-main -->
 <!-- wp:template-part {"slug":"footer","tagName":"div"} /-->

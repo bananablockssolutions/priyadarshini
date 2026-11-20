@@ -15,6 +15,7 @@ final class Plugin {
 		Works\Meta::register_hooks();
 		Crafts\Meta::register_hooks();
 		Works\Variants::register_hooks();
+		Artisan\Profile::register_hooks();
 		if ( get_option( 'pd_db_version' ) !== DB_VERSION ) {
 			Schema::install();
 		}

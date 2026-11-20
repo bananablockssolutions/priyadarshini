@@ -13,7 +13,15 @@ if ( $pieces && is_tax( 'product_cat' ) ) {
 	$term   = get_queried_object();
 	$makers = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT pm.meta_value) FROM {$wpdb->postmeta} pm JOIN {$wpdb->term_relationships} tr ON tr.object_id = pm.post_id JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE pm.meta_key = '_pd_artisan_post_id' AND pm.meta_value > 0 AND tt.term_id = %d AND p.post_status = 'publish'", $term->term_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 }
-$text = sprintf( _n( '%d piece', '%d pieces', $pieces, 'pd-blocks' ), $pieces ) . ( $makers ? ' · ' . sprintf( _n( '%d maker', '%d makers', $makers, 'pd-blocks' ), $makers ) : '' );
+$by = '';
+if ( is_singular( 'pd_artisan' ) ) {
+	// the artisan page: count this maker's works, with the same filters as its grid
+	$q      = new WP_Query( array( 'post_type' => 'product', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => 1, 'meta_query' => array_merge( array( array( 'key' => '_pd_artisan_post_id', 'value' => (int) get_queried_object_id(), 'type' => 'NUMERIC' ) ), \PD\Blocks\Plugin::filter_meta() ) ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+	$pieces = (int) $q->found_posts;
+	$first  = strtok( get_the_title( get_queried_object_id() ), ' ' );
+	$by     = $first ? ' ' . sprintf( /* translators: %s: artisan's first name */ __( 'by %s', 'pd-blocks' ), $first ) : '';
+}
+$text = sprintf( _n( '%d piece', '%d pieces', $pieces, 'pd-blocks' ), $pieces ) . $by . ( $makers ? ' · ' . sprintf( _n( '%d maker', '%d makers', $makers, 'pd-blocks' ), $makers ) : '' );
 ?>
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'pd-toolbar' ) ); ?> data-wp-interactive="pd/catalogue" data-pd-reveal>
 	<span class="pd-toolbar__count"><?php echo esc_html( $text ); ?></span>

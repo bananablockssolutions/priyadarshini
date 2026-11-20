@@ -1,5 +1,26 @@
 <!-- wp:template-part {"slug":"header","tagName":"div"} /-->
 <!-- wp:pd/routed-main {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|7","bottom":"var:preset|spacing|8"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"align":"wide","className":"pd-mob","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide pd-mob">
+<!-- wp:pd/artisan-page /-->
+<!-- wp:pd/shop-toolbar /-->
+<!-- wp:group {"className":"pd-shop","layout":{"type":"default"}} -->
+<div class="wp-block-group pd-shop">
+<!-- wp:pd/filters-rail /-->
+<!-- wp:query {"queryId":5,"query":{"perPage":24,"postType":"product","inherit":false,"pdShelf":"current-artisan","order":"desc","orderBy":"date"},"layout":{"type":"default"}} -->
+<div class="wp-block-query"><!-- wp:post-template {"className":"wc-block-product-template","layout":{"type":"default"}} -->
+<!-- wp:pd/work-card {"showMaker":false,"focusContext":"artisan"} /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph --><p>New works are on their way from this maker.</p><!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"align":"wide","className":"pd-desk","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide pd-desk">
 <!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
 <div class="wp-block-group alignwide">
 <!-- wp:post-title {"level":1} /-->
@@ -18,6 +39,8 @@
 <!-- wp:paragraph --><p>New works are on their way from the makers.</p><!-- /wp:paragraph -->
 <!-- /wp:query-no-results --></div>
 <!-- /wp:query -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 <!-- /wp:pd/routed-main -->

@@ -139,7 +139,7 @@ function outline( el ) {
 const NARROW = '(max-width: 759px)';
 const flightsOK = () => motionOK() && window.matchMedia( NARROW ).matches;
 const rowFlight = flightsOK;
-const BY_WIDTH = new Set( [ 'ill', 'img' ] ); // pictures scale by width, words by font size
+const BY_WIDTH = new Set( [ 'ill', 'img', 'rib' ] ); // pictures scale by width, words by font size
 const SCOPES = '[data-pd-shared],[data-pd-cover],[data-pd-row]';
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
 const shell = () => store( 'pd/shell' );
@@ -425,7 +425,7 @@ const { state, actions } = store( 'pd/navigation', {
 			const cardFlight = !! card && flights && Object.keys( partsOf( card ) ).length > 0;
 			const onCart = !! main()?.querySelector( '[data-pd-cart]' );
 			const bagFlight = !! bagLink && flights && ! onCart;
-			snapshot( source, fromMenu ? { menu: row.dataset.pdRow || '1' } : {} );
+			snapshot( source, { ...( fromMenu ? { menu: row.dataset.pdRow || '1' } : {} ), from: lastFrom } ); // remember where this page came from, for its back link after a Back
 			let leaving = null;
 			let first = null;
 			let held = null;
@@ -523,7 +523,10 @@ const { state, actions } = store( 'pd/navigation', {
 			}
 			if ( cardFlight || bagFlight ) {
 				const id = card?.dataset.pdShared;
-				root.dataset.pdArrive = cardFlight ? 'work' : 'cart';
+				const artisan = !! id?.startsWith( 'artisan-' );
+				// a work opened from an artisan page says "‹ Meera" on its back link, and that link plays Back
+				const backLabel = cardFlight && ! artisan ? main()?.querySelector( '[data-pd-back-label]' )?.dataset.pdBackLabel : '';
+				root.dataset.pdArrive = cardFlight ? ( artisan ? 'artisan' : 'work' ) : 'cart';
 				const unhide = cardFlight ? hideArriving( `#pd-main [data-pd-hero][data-pd-shared="${ CSS.escape( id ) }"]` ) : () => {};
 				try {
 					yield Promise.all( [ leavingCart, sleep( cardFlight ? 180 : 0 ) ] );
@@ -539,13 +542,20 @@ const { state, actions } = store( 'pd/navigation', {
 				arrived();
 				window.scrollTo( 0, 0 );
 				fade?.cancel();
+				if ( backLabel ) {
+					const link = main()?.querySelector( '[data-pd-hero] [data-pd-back]' );
+					if ( link ) {
+						link.href = new URL( from, window.location.href ).href;
+						link.lastChild.textContent = backLabel;
+					}
+				}
 				if ( cardFlight ) {
 					const to = partsOf( main()?.querySelector( `[data-pd-hero][data-pd-shared="${ CSS.escape( id ) }"]` ) );
 					const landing = fly( first, to, 620, () => {
 						held.release( 140 );
 						unhide();
 					} );
-					setTimeout( () => reveal( false ), 420 );
+					setTimeout( () => reveal( artisan ), 420 ); // an artisan page brings its works in too
 					yield landing;
 				} else {
 					yield bagTrip?.land();
@@ -689,7 +699,7 @@ const { state, actions } = store( 'pd/navigation', {
 				// the page steps back (its parts stay on screen as holds) until the earlier page is in and scrolled
 				const popFade = hero ? region.animate( [ { opacity: 1 }, { opacity: 0 } ], { duration: 160, fill: 'forwards' } ) : null;
 				const leavingCart = region?.querySelector( '[data-pd-cart]' ) ? cartToBag() : null;
-				lastFrom = '';
+				lastFrom = snap?.from || '';
 				let back = null;
 				if ( snap?.menu ) {
 					root.dataset.pdArrive = 'menu'; // the shell keeps the menu open through this route change
