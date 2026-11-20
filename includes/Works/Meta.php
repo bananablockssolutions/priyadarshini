@@ -18,6 +18,10 @@ final class Meta {
 	public const ON_ORDER  = '_pd_made_on_order';   // '1' when the piece is made after the order (BUY-09)
 	public const MATERIAL  = '_pd_material';
 	public const TIME      = '_pd_making_time';
+	public const BADGE     = '_pd_badge';           // short tag on the card and page picture, e.g. "Award winner"
+
+	/** Suggested badge words (owner, 2026-11-20). Any short text is allowed. */
+	public const BADGES = array( 'Featured', 'Made on order', 'Award winner', 'New', 'One of a kind', 'Last piece' );
 
 	public const FORMATS = array(
 		'buy'            => 'Buy now only',
@@ -38,7 +42,7 @@ final class Meta {
 		$auth = static fn() => current_user_can( 'edit_products' );
 		register_post_meta( 'product', self::ARTISAN, array( 'single' => true, 'type' => 'integer', 'show_in_rest' => true, 'auth_callback' => $auth, 'default' => 0 ) );
 		register_post_meta( 'product', self::NUMBER, array( 'single' => true, 'type' => 'integer', 'show_in_rest' => true, 'auth_callback' => $auth, 'default' => 0 ) );
-		foreach ( array( self::TITLE_HI, self::FORMAT, self::ON_ORDER, self::MATERIAL, self::TIME ) as $key ) {
+		foreach ( array( self::TITLE_HI, self::FORMAT, self::ON_ORDER, self::MATERIAL, self::TIME, self::BADGE ) as $key ) {
 			register_post_meta( 'product', $key, array( 'single' => true, 'type' => 'string', 'show_in_rest' => true, 'auth_callback' => $auth ) );
 		}
 	}
@@ -72,6 +76,9 @@ final class Meta {
 			<input id="pd-material" name="pd_material" type="text" style="width:100%" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, self::MATERIAL, true ) ); ?>" placeholder="Handmade paper, natural pigments"></p>
 		<p><label for="pd-time"><strong><?php esc_html_e( 'Time to make', 'pd-marketplace' ); ?></strong></label><br>
 			<input id="pd-time" name="pd_making_time" type="text" style="width:100%" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, self::TIME, true ) ); ?>" placeholder="3 weeks"></p>
+		<p><label for="pd-badge"><strong><?php esc_html_e( 'Badge on the picture', 'pd-marketplace' ); ?></strong></label><br>
+			<input id="pd-badge" name="pd_badge" type="text" list="pd-badges" maxlength="24" style="width:100%" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, self::BADGE, true ) ); ?>" placeholder="<?php esc_attr_e( 'Leave empty for none', 'pd-marketplace' ); ?>">
+			<datalist id="pd-badges"><?php foreach ( self::BADGES as $b ) : ?><option value="<?php echo esc_attr( $b ); ?>"><?php endforeach; ?></datalist></p>
 		<?php if ( $n = (int) get_post_meta( $post->ID, self::NUMBER, true ) ) : ?>
 			<p><?php echo esc_html( sprintf( 'Work No. %03d of this artisan', $n ) ); ?></p>
 		<?php endif; ?>
@@ -97,6 +104,7 @@ final class Meta {
 			'made_on_order' => ! empty( $_POST['pd_made_on_order'] ),
 			'material'      => sanitize_text_field( wp_unslash( $_POST['pd_material'] ?? '' ) ),
 			'making_time'   => sanitize_text_field( wp_unslash( $_POST['pd_making_time'] ?? '' ) ),
+			'badge'         => mb_substr( sanitize_text_field( wp_unslash( $_POST['pd_badge'] ?? '' ) ), 0, 24 ),
 		) );
 	}
 
@@ -109,7 +117,7 @@ final class Meta {
 				update_post_meta( $product_id, self::NUMBER, self::next_number( (int) $f['artisan'] ) );
 			}
 		}
-		$map = array( 'title_hi' => self::TITLE_HI, 'format' => self::FORMAT, 'material' => self::MATERIAL, 'making_time' => self::TIME );
+		$map = array( 'title_hi' => self::TITLE_HI, 'format' => self::FORMAT, 'material' => self::MATERIAL, 'making_time' => self::TIME, 'badge' => self::BADGE );
 		foreach ( $map as $k => $meta ) {
 			if ( array_key_exists( $k, $f ) ) {
 				update_post_meta( $product_id, $meta, (string) $f[ $k ] );
