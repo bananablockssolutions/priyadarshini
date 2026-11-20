@@ -26,6 +26,7 @@ final class State {
 		'pd/navigation-store' => array( 'navigation-store.js', array( array( 'id' => '@wordpress/interactivity-router', 'import' => 'dynamic' ) ) ),
 		'pd/shell-store'      => array( 'shell-store.js', array() ),
 		'pd/bag-store'        => array( 'bag-store.js', array() ),
+		'pd/catalogue-store'  => array( 'catalogue-store.js', array() ),
 	);
 
 	public static function boot(): void {
@@ -57,6 +58,9 @@ final class State {
 			case 'pd/shell':
 				self::once( $ns, 'pd/shell-store', array( self::class, 'shell' ) );
 				break;
+			case 'pd/catalogue':
+				self::once( $ns, 'pd/catalogue-store', static fn() => array( 'sheetOpen' => false ) );
+				break;
 			case 'pd/bag':
 				self::once( $ns, 'pd/bag-store', array( self::class, 'bag' ) );
 				break;
@@ -77,17 +81,22 @@ final class State {
 	private static function navigation(): array {
 		$url      = home_url( add_query_arg( array() ) );
 		$excluded = array( wp_parse_url( admin_url(), PHP_URL_PATH ), wp_parse_url( wp_login_url(), PHP_URL_PATH ), '/wp-json/', '/feed/' );
+		$narrow   = array(); // routed on phones only (pd/cart); wide screens keep WooCommerce's own Cart block, which needs a full load
 		if ( function_exists( 'wc_get_page_permalink' ) ) {
 			foreach ( array( 'cart', 'checkout', 'myaccount' ) as $page ) {
 				$path = wp_parse_url( wc_get_page_permalink( $page ), PHP_URL_PATH );
 				if ( $path && '/' !== $path ) {
 					$excluded[] = $path;
+					if ( 'cart' === $page ) {
+						$narrow[] = $path;
+					}
 				}
 			}
 		}
 		return array(
 			'url'            => $url,
 			'excluded'       => array_values( array_unique( array_filter( $excluded ) ) ),
+			'narrowRoutable' => $narrow,
 			'progressVisible' => false,
 			'polite'         => '',
 			'assertive'      => '',
@@ -99,6 +108,16 @@ final class State {
 			'ariaCurrent'    => static function () use ( $url ): ?string {
 				$c = wp_interactivity_get_context();
 				return self::same_section( (string) ( $c['href'] ?? '' ), $url ) ? 'page' : null;
+			},
+			// Bottom bar tab: current when the page is in any of the tab's sections.
+			'tabCurrent'     => static function () use ( $url ): ?string {
+				$c = wp_interactivity_get_context();
+				foreach ( (array) ( $c['match'] ?? array() ) as $href ) {
+					if ( self::same_section( (string) $href, $url ) ) {
+						return 'page';
+					}
+				}
+				return null;
 			},
 		);
 	}
@@ -121,7 +140,7 @@ final class State {
 			'hidden'     => false,
 			'signedIn'   => is_user_logged_in(),
 			'menuLabel'  => static function (): string {
-				return ! empty( wp_interactivity_state( 'pd/shell' )['menuOpen'] ) ? 'Close' : 'Menu';
+				return ! empty( wp_interactivity_state( 'pd/shell' )['menuOpen'] ) ? 'Close menu' : 'Open menu';
 			},
 		);
 	}
@@ -139,6 +158,8 @@ final class State {
 			'_nonce'     => wp_create_nonce( 'wc_store_api' ),
 			'pending'    => false,
 			'bump'       => false,
+			'toast'      => '',
+			'toastOn'    => false,
 			'countLabel' => static function (): string {
 				$n = (int) ( wp_interactivity_state( 'pd/bag' )['count'] ?? 0 );
 				return 1 === $n ? 'Bag, 1 work' : "Bag, {$n} works";

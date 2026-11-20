@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/shop-toolbar",
+	"title": "Pieces toolbar",
+	"category": "woocommerce",
+	"description": "Above a works grid: how many pieces and makers, and the grid or list switch.",
+	"supports": { "html": false, "interactivity": true, "align": [ "wide" ] },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}
