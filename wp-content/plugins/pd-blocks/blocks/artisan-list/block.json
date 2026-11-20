@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/artisan-list",
+	"title": "Artists list (phone)",
+	"category": "widgets",
+	"description": "The Artists tab from the approved prototype (owner sketch 5): ranked artisan cards with portrait, name, short line, awards and artforms, and the rank ribbon. Each card grows into its artisan page.",
+	"attributes": { "heading": { "type": "string", "default": "Artists" }, "intro": { "type": "string", "default": "The named makers of Bihar." } },
+	"supports": { "html": false, "interactivity": true, "className": true },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

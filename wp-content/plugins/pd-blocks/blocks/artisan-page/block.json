@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/artisan-page",
+	"title": "Artisan page (phone)",
+	"category": "widgets",
+	"description": "The top of an artisan page from the approved prototype (owner sketch 5): back to Artists, the big square portrait with its rank ribbon, the name, Follow and Commission a work, awards and artforms, then the bio. The Artists card's parts grow into these.",
+	"usesContext": [ "postId", "postType" ],
+	"supports": { "html": false, "interactivity": true, "className": true },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

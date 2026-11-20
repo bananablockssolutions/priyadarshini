@@ -397,3 +397,47 @@
 }
 @media (min-width:760px){.pd-mob{display:none!important}}
 @media (prefers-reduced-motion:reduce){.pd-toast{transition:none}}
+
+/* ---------- Artists (owner sketch 5): ranked cards, and the card grown into the artisan page ---------- */
+.pd-apic{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;border:1.5px solid var(--kajal);border-radius:2px 3px 3px 2px;background:var(--card);transform-origin:0 0}
+.pd-apic svg,.pd-apic__img{display:block;width:100%;height:100%;object-fit:cover}
+.pd-rib{position:absolute;right:10px;top:-2px;width:26px;height:40px;background:var(--sindoor);color:#fff;font:700 11px/1 var(--body);display:flex;flex-direction:column;align-items:center;padding-top:7px;box-sizing:border-box;clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);transform-origin:0 0;z-index:2}
+.pd-rib small{font-size:9px;margin-top:2px}
+.pd-aname{display:block;font:19px/1.15 var(--display);margin:2px 0 0;transform-origin:0 0}
+.pd-aname__hi{font-size:.7em;color:var(--kajal-soft);margin-left:6px;white-space:nowrap}
+.pd-aline{display:block;font-size:13.5px;line-height:1.35;color:var(--kajal-soft);margin:3px 0 6px;transform-origin:0 0}
+.pd-amarks{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;transform-origin:0 0}
+.pd-amark{display:inline-flex;align-items:center;gap:4px}
+.pd-amark i{width:22px;height:22px;display:inline-grid;place-items:center;border:1.5px solid var(--kajal);border-radius:50%;background:var(--kagaz);font-style:normal;overflow:hidden;box-sizing:border-box}
+.pd-amark i svg,.pd-amark i .pd-drawing{width:15px;height:15px;display:block}
+.pd-amark__lbl{display:none}
+.pd-alist__h{font:28px/1.15 var(--display);margin:0 0 4px}
+.pd-alist__sub{font-size:14.5px;color:var(--kajal-soft);margin:0 0 14px}
+.pd-acard{position:relative;display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start;color:inherit;text-decoration:none;background:var(--card);border:2px solid var(--kajal);border-radius:3px 4px 2px 3px;box-shadow:3px 3px 0 var(--kajal);padding:10px 44px 10px 10px;margin:0 0 14px}
+.pd-acard .pd-apic{width:96px}
+.pd-acard__txt{display:block;min-width:0}
+.pd-apage{display:block;padding:0 0 6px}
+.pd-apage__back{display:inline-block;font:600 14.5px var(--body);color:var(--neel);text-decoration:none;padding:4px 0;margin:0 0 8px;min-height:32px}
+.pd-apage__hero{display:flex;flex-direction:column;align-items:center;text-align:center}
+.pd-apage__frame{position:relative;width:62%;padding:10px;box-sizing:border-box}
+.pd-apage__mat{position:absolute;inset:0;background:var(--card);border:2px solid var(--kajal);border-radius:3px 4px 2px 3px;box-shadow:3px 3px 0 var(--kajal)}
+.pd-apage__frame .pd-apic{width:100%}
+.pd-apage__frame .pd-rib{right:-6px;top:-4px;width:34px;height:52px;font-size:14px}
+.pd-apage__name{font-size:30px;margin-top:14px}
+.pd-apage__name .pd-aname__hi{display:block;margin:2px 0 0;font-size:.62em}
+.pd-apage__act{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:12px}
+.pd-apage__act .pd-btn{min-height:40px;padding:6px 16px;font-size:15px;box-shadow:2px 2px 0 var(--kajal)}
+.pd-apage__act .pd-follow button[aria-pressed="true"]{background:var(--kajal);color:var(--kagaz)}
+.pd-apage__comm{display:inline-flex;align-items:center;min-height:40px;box-sizing:border-box;padding:6px 16px;background:var(--sindoor);color:#fff;border:1.5px solid var(--kajal);border-radius:3px;box-shadow:2px 2px 0 var(--kajal);font:700 15px var(--body);text-decoration:none}
+.pd-apage__hero .pd-amarks{justify-content:center;font-size:14px;margin-top:10px;gap:10px}
+.pd-apage__hero .pd-amark i{width:30px;height:30px}
+.pd-apage__hero .pd-amark i svg,.pd-apage__hero .pd-amark i .pd-drawing{width:20px;height:20px}
+.pd-apage__hero .pd-amark__lbl{display:inline;font-weight:600}
+.pd-apage__hero .pd-amark__sr{display:none}
+.pd-apage__bio{margin:14px 0 0}
+.pd-apage__line{font-size:15.5px;color:var(--kajal);margin:0}
+.pd-apage__text p{font-size:15.5px;line-height:1.45;margin:8px 0 0}
+.pd-apage__quote{font:18px/1.4 'Kalam',var(--body);border-left:2px solid var(--kajal);padding-left:12px;margin:14px 0 0}
+.pd-apage__place{font-size:14px;color:var(--kajal-soft);margin:8px 0 0}
+.pd-mob .pd-shop .wp-block-query > .wc-block-product-template{display:grid!important;margin:0!important;padding:0!important;list-style:none}
+@media (max-width:759px){[data-pd-arrive="artisan"] #pd-main .pd-shop .wc-block-product-template > li{opacity:0}}

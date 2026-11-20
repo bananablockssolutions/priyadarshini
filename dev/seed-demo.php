@@ -65,6 +65,15 @@ foreach ( $artisans as $i => [ $slug, $name, $hi, $village, $accent, $motif, $cr
 	update_post_meta( $id, '_pd_name_hi', $hi );
 	update_post_meta( $id, '_pd_village', $village );
 	wp_set_object_terms( $id, $crafts[ $craft ], 'product_cat' );
+	// Artists tab (sketch 5): short line, rank, awards, quote; artforms are the craft plus the types they make
+	$lines = array( 'Paints fish, lotus and the sun in double lines with a bamboo pen.', 'Stitches whole village stories in Sujani, one running stitch at a time.', 'Coils golden sikki grass into boxes, toys and baskets.' );
+	$bios  = array( 'Meera learned from her mother-in-law on the walls of the kohbar, the wedding room. Today she paints on cloth and handmade paper, and teaches eleven girls from her village.', 'Kavita turned the old Sujani quilt into dupattas and sarees. A single dupatta can carry a whole wedding procession. She works with a group of fourteen women.', 'Ramesh cuts sikki after the rains and dries it until it turns gold. A lidded box takes him a week.' );
+	wp_update_post( array( 'ID' => $id, 'post_excerpt' => $lines[ $i ], 'post_content' => '<!-- wp:paragraph --><p>' . $bios[ $i ] . '</p><!-- /wp:paragraph -->' ) );
+	if ( class_exists( '\PD\Artisan\Profile' ) ) {
+		\PD\Artisan\Profile::set( $id, array( 'rank' => $i + 1, 'quote' => $quote, 'awards' => array( array( 'National Award 2019', 'State Award 2014' ), array( 'State Award 2021' ), array() )[ $i ] ) );
+	}
+	$forms = array( array( 'kurti', 'wall-art' ), array( 'dupatta', 'saree' ), array( 'baskets-and-boxes' ) )[ $i ];
+	wp_set_object_terms( $id, array_merge( array( $crafts[ $craft ] ), array_map( static fn( $f ) => $types[ $f ], $forms ) ), 'product_cat' );
 	wp_update_post( array( 'ID' => $id, 'post_status' => 'publish' ) );
 	$ids[ $slug ] = $id;
 }
