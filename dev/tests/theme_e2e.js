@@ -63,14 +63,14 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( await p.evaluate( () => window.__marker === 1 ), 'artisan page opened in place' );
 		ok( /Meera Devi/.test( await p.locator( '.pd-ctx__text' ).textContent() ), 'context row shows the maker' );
 		ok( await p.locator( '.pd-ctx .pd-seal[data-accent="gulabi"]' ).count() === 1, 'context row carries the maker Seal' );
-		ok( await p.locator( '#pd-main .pd-work-card' ).count() === 3, 'works shelf lists only this maker\'s 3 works', String( await p.locator( '#pd-main .pd-work-card' ).count() ) );
+		ok( await p.locator( '#pd-main .pd-work-card' ).count() === 6, 'works shelf lists only this maker\'s 6 works', String( await p.locator( '#pd-main .pd-work-card' ).count() ) );
 		ok( await p.evaluate( () => window.scrollY ) === 0, 'new page starts at the top' );
 
 		await p.click( '.pd-work-card__link:has-text("Fish and Lotus Pond")' );
 		await p.waitForURL( '**/product/demo-fish-and-lotus-pond/' );
 		await settle( p );
 		ok( await p.evaluate( () => window.__marker === 1 ), 'work page opened in place' );
-		ok( ( await p.locator( '#pd-main h1' ).textContent() ).includes( 'Fish and Lotus Pond' ), 'work page heading' );
+		ok( ( await p.locator( '#pd-main h1:visible' ).textContent() ).includes( 'Fish and Lotus Pond' ), 'work page heading' );
 		ok( await p.locator( '#pd-main [data-pd-vt="work-' + ( await p.locator( '.pd-buy' ).getAttribute( 'data-wp-context' ).then( ( c ) => JSON.parse( c ).workId ) ) + '"][data-pd-vt-dest]' ).count() === 1, 'gallery plate is the transition destination' );
 
 		await p.goBack();
@@ -95,10 +95,10 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( ( await p.locator( '.pd-bagc' ).textContent() ).trim() === '0', 'bag starts empty' );
 		await p.evaluate( () => { window.__marker = 1; } );
 		const t0 = Date.now();
-		await p.click( '.pd-buy__add button' );
+		await p.click( '.pd-buy__form button:not([data-pd-buy-now])' );
 		await p.waitForFunction( () => document.querySelector( '.pd-bagc' ).textContent.trim() === '1' );
 		ok( Date.now() - t0 < 300, 'count moves at once (optimistic)', String( Date.now() - t0 ) + ' ms' );
-		await p.waitForFunction( () => document.querySelector( '.pd-buy__add button' ).getAttribute( 'aria-busy' ) === 'false' );
+		await p.waitForFunction( () => document.querySelector( '.pd-buy__form button:not([data-pd-buy-now])' ).getAttribute( 'aria-busy' ) === 'false' );
 		ok( await p.evaluate( () => window.__marker === 1 ), 'Add to bag does not reload the page' );
 		const cart = await p.evaluate( async () => ( await ( await fetch( '/wp-json/wc/store/v1/cart', { credentials: 'same-origin' } ) ).json() ).items_count );
 		ok( cart === 1, 'WooCommerce cart holds the work', String( cart ) );
@@ -132,7 +132,7 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 	{
 		const p = await newPage( { javaScriptEnabled: false } );
 		await p.goto( BASE + '/product/demo-village-story-panel/' );
-		await p.click( '.pd-buy__add button' );
+		await p.click( '.pd-buy__form button:not([data-pd-buy-now])' );
 		await p.waitForLoadState( 'load' );
 		ok( ( await p.locator( '.pd-bagc' ).textContent() ).trim() === '1', 'no-JS Add to bag posts to WooCommerce and the count shows 1' );
 		ok( await p.locator( '.pd-shell__nav a' ).count() === 2, 'no-JS navigation is plain links' );
@@ -148,11 +148,15 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		const barW = await p.evaluate( () => document.querySelector( '.pd-shell__bar' ).scrollWidth <= innerWidth );
 		ok( barW, 'shell bar fits a 390px screen' );
 		await p.click( '#pd-shell-menu-btn' );
-		ok( await p.locator( '.pd-shell__nav' ).isVisible(), 'Menu opens the nav' );
-		ok( ( await p.locator( '#pd-shell-menu-btn' ).textContent() ).trim() === 'Close', 'Menu button reads Close' );
+		ok( await p.locator( '#pd-menu' ).isVisible(), 'Menu opens the illustrated menu' );
+		ok( ( await p.getAttribute( '#pd-shell-menu-btn', 'aria-label' ) ) === 'Close menu', 'menu icon is labelled Close menu' );
+		await p.waitForTimeout( 900 );
 		await p.keyboard.press( 'Escape' );
-		ok( ! ( await p.locator( '.pd-shell__nav' ).isVisible() ), 'Escape closes the menu' );
+		await p.waitForTimeout( 800 );
+		ok( ! ( await p.locator( '#pd-menu' ).isVisible() ), 'Escape closes the menu' );
 		ok( await p.evaluate( () => document.activeElement?.id === 'pd-shell-menu-btn' ), 'focus returns to the Menu button' );
+		await p.setViewportSize( { width: 1280, height: 800 } ); // search lives in the header on wider screens; on a phone it is the Explore tab
+		await p.waitForTimeout( 200 );
 		const h0 = await p.evaluate( () => document.querySelector( '.pd-shell' ).offsetHeight );
 		await p.click( '#pd-shell-search-btn' );
 		await p.waitForTimeout( 100 );
@@ -169,6 +173,7 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( await p.evaluate( () => window.__marker === 1 ), 'search results open in place' );
 		ok( ( await p.content() ).includes( 'Sikki Elephant' ), 'search finds the work' );
 		ok( ! ( await p.locator( '.pd-shell__search' ).isVisible() ), 'search closes after navigation (reset rule)' );
+		await p.setViewportSize( { width: 390, height: 844 } );
 		await p.goto( BASE + '/shop/?pd-nosplash' );
 		await p.waitForTimeout( 300 );
 		await p.mouse.wheel( 0, 600 );

@@ -44,6 +44,8 @@ final class View {
 			'ratingAvg'    => (float) $p->get_average_rating(),
 			'ratingCount'  => (int) $p->get_review_count(),
 			'artisan'      => $artisan_id ? self::maker( $artisan_id ) : null,
+			'badge'        => (string) $p->get_meta( Meta::BADGE ),
+			'options'      => Variants::options( $p ),
 		);
 	}
 

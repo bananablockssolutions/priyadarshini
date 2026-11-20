@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/cover",
+	"title": "Page cover",
+	"category": "design",
+	"description": "The illustrated cover of a craft, Artisans or Works page: the same illustration and words as its card in the menu, which grow into this cover when the card is chosen. The page heading lives here.",
+	"attributes": {
+		"section": { "type": "string", "enum": [ "auto", "artisans", "works" ], "default": "auto" }
+	},
+	"supports": { "html": false, "interactivity": true, "align": [ "wide", "full" ] },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}

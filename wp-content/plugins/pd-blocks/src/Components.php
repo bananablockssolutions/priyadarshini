@@ -19,6 +19,36 @@ final class Components {
 		'studio'  => '0 0 100 70',
 	);
 
+	/** Product-type drawings from the approved menu prototype (placeholders until the owner's illustrations arrive). */
+	private const DRAWINGS = array(
+		'kurti' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M42 16 L53 12 Q60 22 67 12 L78 16 L102 36 L91 49 L82 42 L85 106 L35 106 L38 42 L29 49 L18 36 Z" fill="#D9467A" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><path d="M53 12 Q60 30 67 12" fill="#FFFAF0" stroke="#2A1E17" stroke-width="2"/><path d="M36 92 L84 92" stroke="#2A1E17" stroke-width="2"/><path d="M36 99 h48" stroke="#E9A30C" stroke-width="5"/><path d="M48 58 Q60 46 72 58 Q60 70 48 58Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2"/><path d="M48 58 L42 53 L42 63Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2" stroke-linejoin="round"/><circle cx="66" cy="57" r="1.8" fill="#2A1E17"/><g fill="#2A1E17"><circle cx="44" cy="80" r="1.6"/><circle cx="52" cy="80" r="1.6"/><circle cx="60" cy="80" r="1.6"/><circle cx="68" cy="80" r="1.6"/><circle cx="76" cy="80" r="1.6"/></g></svg>',
+		'saree' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M18 34 H102 V96 H18 Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><path d="M18 42 H102 M18 88 H102" stroke="#C8321F" stroke-width="7"/><path d="M18 34 H102 M18 96 H102" stroke="#2A1E17" stroke-width="2.5"/><path d="M40 46 V84 M52 46 V84 M64 46 V84" stroke="#2A1E17" stroke-width="1.4" stroke-dasharray="3 4"/><path d="M70 34 L102 34 L102 74 Z" fill="#D9467A" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><g fill="#FFFAF0" stroke="#2A1E17" stroke-width="1.2"><circle cx="90" cy="44" r="3"/><circle cx="96" cy="56" r="2.4"/><circle cx="84" cy="40" r="2"/></g><path d="M22 22 Q60 10 98 22" fill="none" stroke="#2A1E17" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/></svg>',
+		'dupatta' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M14 38 Q40 20 62 36 T108 34 L108 62 Q84 64 62 62 T14 66 Z" fill="#3E7B3A" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 52 Q40 34 62 50 T108 48" fill="none" stroke="#FFFAF0" stroke-width="2" stroke-dasharray="4 4"/><g stroke="#2A1E17" stroke-width="2" stroke-linecap="round"><path d="M18 68 v10 M26 67 v12 M34 66 v10 M42 65 v12 M50 64 v10 M58 63 v12 M66 63 v10 M74 63 v12 M82 64 v10 M90 64 v12 M98 63 v10 M106 63 v12"/></g><g fill="#E9A30C" stroke="#2A1E17" stroke-width="1.3"><path d="M34 42 l4 -6 l4 6 l-4 6z"/><path d="M80 42 l4 -6 l4 6 l-4 6z"/><path d="M57 46 l4 -6 l4 6 l-4 6z"/></g><path d="M20 96 Q60 84 100 96" fill="none" stroke="#2A1E17" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/></svg>',
+		'wallart' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><rect x="16" y="14" width="88" height="92" rx="3" fill="#FFFAF0" stroke="#2A1E17" stroke-width="2.5"/><rect x="23" y="21" width="74" height="78" fill="none" stroke="#2A1E17" stroke-width="1.6"/><path d="M23 27 h74 M23 93 h74" stroke="#C8321F" stroke-width="4" stroke-dasharray="4 3"/><path d="M38 60 Q60 36 84 60 Q60 84 38 60Z" fill="#E26A1B" stroke="#2A1E17" stroke-width="2.2"/><path d="M38 60 L28 50 L28 70 Z" fill="#E26A1B" stroke="#2A1E17" stroke-width="2.2" stroke-linejoin="round"/><circle cx="74" cy="56" r="3" fill="#FFFAF0" stroke="#2A1E17" stroke-width="1.5"/><path d="M50 52 q4 8 0 16 M58 48 q5 12 0 24 M66 50 q4 10 0 20" fill="none" stroke="#2A1E17" stroke-width="1.6"/></svg>',
+		'basket' => '<svg class="pd-drawing" focusable="false" viewBox="0 0 120 120" aria-hidden="true"><path d="M24 44 L32 98 Q60 108 88 98 L96 44 Z" fill="#E9A30C" stroke="#2A1E17" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="60" cy="44" rx="36" ry="11" fill="#E9A30C" stroke="#2A1E17" stroke-width="2.5"/><path d="M26 56 Q60 66 94 56 M28 68 Q60 78 92 68 M30 80 Q60 90 90 80" fill="none" stroke="#2A1E17" stroke-width="1.5"/><path d="M30 61 l6 4 l6 -4 l6 4 l6 -4 l6 4 l6 -4 l6 4 l6 -4 l6 4 l6 -4" fill="none" stroke="#C8321F" stroke-width="2.4" stroke-linejoin="round"/><ellipse cx="60" cy="44" rx="24" ry="6" fill="none" stroke="#2A1E17" stroke-width="1.4"/><path d="M54 33 Q60 22 66 33" fill="none" stroke="#2A1E17" stroke-width="2.5"/></svg>',
+	);
+
+	public const DRAWING_KEYS = array( 'kurti', 'saree', 'dupatta', 'wallart', 'basket' );
+
+	/**
+	 * The picture of a menu row, which the type page then shows as its featured image: the category's own image
+	 * when one is set, otherwise a placeholder drawing (or a motif for other scenes). No frame: the page adds one.
+	 */
+	public static function drawing( array $item, bool $large = false ): string {
+		$cover = (int) ( $item['cover'] ?? 0 );
+		if ( $cover ) {
+			$img = wp_get_attachment_image( $cover, $large ? 'large' : 'thumbnail', false, array( 'alt' => '', 'class' => 'pd-drawing pd-drawing--img', 'loading' => 'eager', 'decoding' => 'async' ) );
+			if ( $img ) {
+				return $img;
+			}
+		}
+		$scene = (string) ( $item['scene'] ?? '' );
+		if ( isset( self::DRAWINGS[ $scene ] ) ) {
+			return self::DRAWINGS[ $scene ];
+		}
+		return '<span class="pd-drawing" data-accent="' . esc_attr( self::accent( (string) ( $item['accent'] ?? 'gulabi' ) ) ) . '">' . self::motif( $scene ?: 'fish' ) . '</span>';
+	}
+
 	public const ACCENTS = array( 'gulabi', 'kusum', 'neel', 'patta', 'sindoor', 'haldi' ); // BRD-08, final set
 
 	public static function accent( string $a ): string {
@@ -90,5 +120,135 @@ final class Components {
 			esc_html( number_format_i18n( $avg, 1 ) ),
 			$count
 		);
+	}
+
+	/**
+	 * Illustration: the picture on a menu card, which becomes the cover of the page it opens. The craft's own
+	 * illustration when one is set; otherwise a placeholder scene drawn from the motifs on a pigment ground.
+	 * The frame and the ink triangle border come from CSS, so a scene can be cropped to any ratio.
+	 * @param array{cover?:int,scene?:string,accent?:string,alt?:string} $item
+	 */
+	public static function illustration( array $item, string $vt = '', bool $dest = false, bool $eager = false, string $class = '' ): string {
+		$accent = self::accent( (string) ( $item['accent'] ?? 'gulabi' ) );
+		$cover  = (int) ( $item['cover'] ?? 0 );
+		$inner  = $cover ? wp_get_attachment_image(
+			$cover,
+			'large',
+			false,
+			array( 'alt' => (string) ( $item['alt'] ?? '' ), 'loading' => $eager ? 'eager' : 'lazy', 'decoding' => 'async', 'class' => 'pd-ill__img', 'sizes' => $dest ? '100vw' : '(min-width: 760px) 30vw, 90vw' )
+		) : '';
+		if ( ! $inner ) {
+			$inner = self::scene( (string) ( $item['scene'] ?? 'fish' ) );
+		}
+		return sprintf(
+			'<span class="pd-ill%1$s" data-accent="%2$s"%3$s%4$s>%5$s</span>',
+			$class ? ' ' . esc_attr( $class ) : '',
+			esc_attr( $accent ),
+			$vt ? ' data-pd-vt="' . esc_attr( $vt ) . '"' : '',
+			$dest ? ' data-pd-vt-dest' : '',
+			$inner
+		);
+	}
+
+	/** Placeholder scene, 600 by 400, composed around the centre so it crops well (slice). */
+	private static function scene( string $scene ): string {
+		$scene = 'plant' === $scene ? 'leaf' : $scene;
+		$scene = isset( self::MOTIFS[ $scene ] ) ? $scene : 'fish';
+		[ , , $w, $h ] = array_map( 'floatval', explode( ' ', self::MOTIFS[ $scene ] ) );
+		$scale = min( 250 / $w, 190 / $h );
+		$mw    = round( $w * $scale );
+		$mh    = round( $h * $scale );
+		$main  = sprintf( '<use href="#pd-m-%1$s" x="%2$s" y="%3$s" width="%4$s" height="%5$s"/>', $scene, 300 - $mw / 2, 196 - $mh / 2, $mw, $mh );
+		$side  = 'leaf' === $scene ? 'sun' : 'leaf';
+		[ , , $sw, $sh ] = array_map( 'floatval', explode( ' ', self::MOTIFS[ $side ] ) );
+		$ss    = min( 74 / $sw, 120 / $sh );
+		$sw    = round( $sw * $ss );
+		$sh    = round( $sh * $ss );
+		$sides = sprintf(
+			'<use href="#pd-m-%1$s" x="%2$s" y="%3$s" width="%4$s" height="%5$s"/><g transform="translate(600 0) scale(-1 1)"><use href="#pd-m-%1$s" x="%2$s" y="%3$s" width="%4$s" height="%5$s"/></g>',
+			$side,
+			118 - $sw / 2,
+			218 - $sh / 2,
+			$sw,
+			$sh
+		);
+		$dots = '';
+		foreach ( array( array( 60, 70 ), array( 540, 70 ), array( 40, 300 ), array( 560, 300 ), array( 150, 90 ), array( 450, 90 ), array( 210, 330 ), array( 390, 330 ) ) as $i => [ $x, $y ] ) {
+			$dots .= sprintf( '<circle cx="%d" cy="%d" r="%s" class="pd-ill__%s"/>', $x, $y, $i % 2 ? '5' : '7', $i % 3 ? 'dot' : 'dot2' );
+		}
+		return '<svg class="pd-ill__scene" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">'
+			. '<rect width="600" height="400" class="pd-ill__ground"/>'
+			. '<circle cx="300" cy="196" r="150" class="pd-ill__halo"/>'
+			. '<circle cx="300" cy="196" r="168" class="pd-ill__ring"/>'
+			. '<circle cx="300" cy="196" r="182" class="pd-ill__ring2"/>'
+			. $dots . $sides . $main
+			. '<path class="pd-ill__water" d="M-10 372q25-14 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0M-10 392q25-14 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0"/>'
+			. '</svg>';
+	}
+
+	/* ---------- mobile work card and work page (approved prototype, sketch 3) ---------- */
+
+	private const TINTS = array( '#F7D5DF', '#F6E2B7', '#DCE6D3', '#F4DCC8', '#DCDDEA' );
+
+	/** Price as the prototype writes it: ₹4,999 (no paise when there are none). */
+	public static function money( float $amount ): string {
+		$dec = abs( $amount - round( $amount ) ) < 0.005 ? 0 : 2;
+		return function_exists( 'wc_price' ) ? wp_strip_all_tags( html_entity_decode( wc_price( $amount, array( 'decimals' => $dec ) ) ) ) : '₹' . number_format( $amount, $dec );
+	}
+
+	/**
+	 * The square picture of a work with its badge: the product photo, or, until there is one, the drawing of its type
+	 * on a light pigment ground (as in the prototype). Carries data-pd-fly="img" so it can travel between card and page.
+	 */
+	public static function work_pic( array $work, string $class, bool $eager = false ): string {
+		$img = $work['imageId'] ? wp_get_attachment_image(
+			(int) $work['imageId'],
+			'woocommerce_single',
+			false,
+			array( 'alt' => '', 'class' => 'pd-pic__img', 'sizes' => '(min-width: 760px) 40vw, 100vw', 'loading' => $eager ? 'eager' : 'lazy', 'decoding' => 'async' )
+		) : '';
+		if ( ! $img ) {
+			$type = Menu::type_of( (int) $work['id'] );
+			$img  = '<span class="pd-pic__art" style="background:' . esc_attr( self::TINTS[ (int) $work['id'] % count( self::TINTS ) ] ) . '">' . ( $type ? self::drawing( $type ) : self::motif( $work['artisan']['motif'] ?? 'fish' ) ) . '</span>';
+		}
+		$badge = '' !== (string) ( $work['badge'] ?? '' ) ? '<span class="pd-pic__badge">' . esc_html( $work['badge'] ) . '</span>' : '';
+		return '<span class="pd-pic ' . esc_attr( $class ) . '" data-pd-fly="img">' . $img . $badge . '</span>';
+	}
+
+	/**
+	 * Colour dots, sizes, price and Buy: one real form, so it works without JavaScript (a WooCommerce add-to-cart post
+	 * with the picked attributes); with JavaScript pd/bag adds it through the Store API and a dot flies to the Bag.
+	 * @param array<string,string> $picked
+	 */
+	public static function pick_form( array $work, array $picked, string $variant ): string {
+		$opts = $work['options'] ?? array( 'colour' => array(), 'size' => array() );
+		$ctx  = wp_interactivity_data_wp_context( array( 'workId' => (int) $work['id'], 'title' => $work['title'] ) );
+		$out  = '<form class="pd-pick pd-pick--' . esc_attr( $variant ) . '" method="post" action="' . esc_url( $work['url'] ) . '" data-wp-interactive="pd/bag" ' . $ctx
+			. ' data-wp-on--submit="actions.submitAdd" data-wp-on--change="pd/catalogue::actions.pick">';
+		if ( $opts['colour'] || $opts['size'] ) {
+			$out .= '<div class="pd-pick__var" data-pd-fly="var">';
+			if ( $opts['colour'] ) {
+				$out .= '<fieldset class="pd-dots"><legend class="screen-reader-text">' . esc_html__( 'Colour', 'pd-blocks' ) . '</legend>';
+				foreach ( $opts['colour'] as $c ) {
+					$out .= '<label class="pd-dot" style="--dot:' . esc_attr( $c['hex'] ) . '"><input type="radio" name="attribute_pa_colour" value="' . esc_attr( $c['slug'] ) . '"' . checked( $picked['colour'] ?? '', $c['slug'], false ) . '><span class="screen-reader-text">' . esc_html( $c['name'] ) . '</span></label>';
+				}
+				$out .= '</fieldset>';
+			}
+			if ( $opts['size'] ) {
+				$out .= '<fieldset class="pd-sizes"><legend class="screen-reader-text">' . esc_html__( 'Size', 'pd-blocks' ) . '</legend>';
+				foreach ( $opts['size'] as $z ) {
+					$out .= '<label class="pd-sz"><input type="radio" name="attribute_pa_size" value="' . esc_attr( $z['slug'] ) . '"' . checked( $picked['size'] ?? '', $z['slug'], false ) . '><span>' . esc_html( $z['name'] ) . '</span></label>';
+				}
+				$out .= '</fieldset>';
+			}
+			$out .= '</div>';
+		}
+		$out .= '<div class="pd-pick__buy" data-pd-fly="buy"><span class="pd-pick__price">' . esc_html( self::money( (float) $work['price'] ) ) . '</span>';
+		if ( $work['canBuy'] ) {
+			$out .= '<input type="hidden" name="quantity" value="1"><button class="pd-pick__btn" type="submit" name="add-to-cart" value="' . (int) $work['id'] . '" aria-label="' . esc_attr( sprintf( /* translators: %s: work title */ __( 'Buy %s', 'pd-blocks' ), $work['title'] ) ) . '" data-wp-bind--aria-busy="state.pending">' . esc_html__( 'Buy', 'pd-blocks' ) . '</button>';
+		} else {
+			$out .= '<a class="pd-pick__btn" href="' . esc_url( $work['url'] ) . '">' . esc_html( 'commission' === $work['format'] ? __( 'Commission', 'pd-blocks' ) : __( 'Sold', 'pd-blocks' ) ) . '</a>';
+		}
+		return $out . '</div></form>';
 	}
 }

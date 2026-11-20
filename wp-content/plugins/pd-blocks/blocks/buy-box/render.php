@@ -53,13 +53,20 @@ $ctx        = wp_interactivity_data_wp_context( array( 'workId' => $id, 'title' 
 	<p class="pd-stock"><span class="pd-format"><?php echo esc_html( $work['formatLabel'] ); ?></span> <span class="pd-avail"><?php echo esc_html( $work['availability'] ); ?></span></p>
 	<div class="pd-buy__actions">
 		<?php if ( $work['canBuy'] && $checkout ) : ?>
-			<form method="post" action="<?php echo esc_url( $checkout ); ?>" class="pd-buy__now">
-				<input type="hidden" name="add-to-cart" value="<?php echo (int) $id; ?>">
-				<button class="pd-btn pd-btn--primary" type="submit"><?php esc_html_e( 'Buy now', 'pd-blocks' ); ?></button>
-			</form>
-			<form method="post" action="<?php echo esc_url( $work['url'] ); ?>" class="pd-buy__add" data-wp-on--submit="actions.submitAdd">
+			<?php $picked = \PD\Works\Variants::picked( $work['options'], $_GET ); // phpcs:ignore WordPress.Security.NonceVerification ?>
+			<form method="post" action="<?php echo esc_url( $work['url'] ); ?>" class="pd-buy__form" data-wp-on--submit="actions.submitAdd">
+				<?php foreach ( array( 'colour' => __( 'Colour', 'pd-blocks' ), 'size' => __( 'Size', 'pd-blocks' ) ) as $key => $legend ) : ?>
+					<?php if ( $work['options'][ $key ] ) : ?>
+					<fieldset class="pd-buy__opts"><legend><?php echo esc_html( $legend ); ?></legend>
+						<?php foreach ( $work['options'][ $key ] as $o ) : ?>
+							<label class="pd-chip"><input type="radio" name="attribute_pa_<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $o['slug'] ); ?>" <?php checked( $picked[ $key ] ?? '', $o['slug'] ); ?>><?php if ( 'colour' === $key ) : ?><i style="background:<?php echo esc_attr( $o['hex'] ); ?>"></i><?php endif; ?><?php echo esc_html( $o['name'] ); ?></label>
+						<?php endforeach; ?>
+					</fieldset>
+					<?php endif; ?>
+				<?php endforeach; ?>
 				<input type="hidden" name="add-to-cart" value="<?php echo (int) $id; ?>">
 				<input type="hidden" name="quantity" value="1">
+				<button class="pd-btn pd-btn--primary" type="submit" formaction="<?php echo esc_url( $checkout ); ?>" data-pd-buy-now><?php esc_html_e( 'Buy now', 'pd-blocks' ); ?></button>
 				<button class="pd-btn" type="submit" aria-busy="false" data-wp-bind--aria-busy="state.pending"><?php esc_html_e( 'Add to bag', 'pd-blocks' ); ?></button>
 			</form>
 		<?php endif; ?>

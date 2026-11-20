@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pd/cart",
+	"title": "Cart (phone)",
+	"category": "woocommerce",
+	"description": "The cart page on a phone from the approved prototype: the Bag icon as the page heading with CART under it, then each piece with its colour and size, the total and Checkout. Remove works without JavaScript.",
+	"supports": { "html": false, "interactivity": true, "className": true },
+	"textdomain": "pd-blocks",
+	"editorScript": "pd-blocks-editor",
+	"render": "file:./render.php"
+}
