@@ -185,4 +185,70 @@ final class Components {
 			. '<path class="pd-ill__water" d="M-10 372q25-14 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0M-10 392q25-14 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0"/>'
 			. '</svg>';
 	}
+
+	/* ---------- mobile work card and work page (approved prototype, sketch 3) ---------- */
+
+	private const TINTS = array( '#F7D5DF', '#F6E2B7', '#DCE6D3', '#F4DCC8', '#DCDDEA' );
+
+	/** Price as the prototype writes it: ₹4,999 (no paise when there are none). */
+	public static function money( float $amount ): string {
+		$dec = abs( $amount - round( $amount ) ) < 0.005 ? 0 : 2;
+		return function_exists( 'wc_price' ) ? wp_strip_all_tags( html_entity_decode( wc_price( $amount, array( 'decimals' => $dec ) ) ) ) : '₹' . number_format( $amount, $dec );
+	}
+
+	/**
+	 * The square picture of a work with its badge: the product photo, or, until there is one, the drawing of its type
+	 * on a light pigment ground (as in the prototype). Carries data-pd-fly="img" so it can travel between card and page.
+	 */
+	public static function work_pic( array $work, string $class, bool $eager = false ): string {
+		$img = $work['imageId'] ? wp_get_attachment_image(
+			(int) $work['imageId'],
+			'woocommerce_single',
+			false,
+			array( 'alt' => '', 'class' => 'pd-pic__img', 'sizes' => '(min-width: 760px) 40vw, 100vw', 'loading' => $eager ? 'eager' : 'lazy', 'decoding' => 'async' )
+		) : '';
+		if ( ! $img ) {
+			$type = Menu::type_of( (int) $work['id'] );
+			$img  = '<span class="pd-pic__art" style="background:' . esc_attr( self::TINTS[ (int) $work['id'] % count( self::TINTS ) ] ) . '">' . ( $type ? self::drawing( $type ) : self::motif( $work['artisan']['motif'] ?? 'fish' ) ) . '</span>';
+		}
+		$badge = '' !== (string) ( $work['badge'] ?? '' ) ? '<span class="pd-pic__badge">' . esc_html( $work['badge'] ) . '</span>' : '';
+		return '<span class="pd-pic ' . esc_attr( $class ) . '" data-pd-fly="img">' . $img . $badge . '</span>';
+	}
+
+	/**
+	 * Colour dots, sizes, price and Buy: one real form, so it works without JavaScript (a WooCommerce add-to-cart post
+	 * with the picked attributes); with JavaScript pd/bag adds it through the Store API and a dot flies to the Bag.
+	 * @param array<string,string> $picked
+	 */
+	public static function pick_form( array $work, array $picked, string $variant ): string {
+		$opts = $work['options'] ?? array( 'colour' => array(), 'size' => array() );
+		$ctx  = wp_interactivity_data_wp_context( array( 'workId' => (int) $work['id'], 'title' => $work['title'] ) );
+		$out  = '<form class="pd-pick pd-pick--' . esc_attr( $variant ) . '" method="post" action="' . esc_url( $work['url'] ) . '" data-wp-interactive="pd/bag" ' . $ctx
+			. ' data-wp-on--submit="actions.submitAdd" data-wp-on--change="pd/catalogue::actions.pick">';
+		if ( $opts['colour'] || $opts['size'] ) {
+			$out .= '<div class="pd-pick__var" data-pd-fly="var">';
+			if ( $opts['colour'] ) {
+				$out .= '<fieldset class="pd-dots"><legend class="screen-reader-text">' . esc_html__( 'Colour', 'pd-blocks' ) . '</legend>';
+				foreach ( $opts['colour'] as $c ) {
+					$out .= '<label class="pd-dot" style="--dot:' . esc_attr( $c['hex'] ) . '"><input type="radio" name="attribute_pa_colour" value="' . esc_attr( $c['slug'] ) . '"' . checked( $picked['colour'] ?? '', $c['slug'], false ) . '><span class="screen-reader-text">' . esc_html( $c['name'] ) . '</span></label>';
+				}
+				$out .= '</fieldset>';
+			}
+			if ( $opts['size'] ) {
+				$out .= '<fieldset class="pd-sizes"><legend class="screen-reader-text">' . esc_html__( 'Size', 'pd-blocks' ) . '</legend>';
+				foreach ( $opts['size'] as $z ) {
+					$out .= '<label class="pd-sz"><input type="radio" name="attribute_pa_size" value="' . esc_attr( $z['slug'] ) . '"' . checked( $picked['size'] ?? '', $z['slug'], false ) . '><span>' . esc_html( $z['name'] ) . '</span></label>';
+				}
+				$out .= '</fieldset>';
+			}
+			$out .= '</div>';
+		}
+		$out .= '<div class="pd-pick__buy" data-pd-fly="buy"><span class="pd-pick__price">' . esc_html( self::money( (float) $work['price'] ) ) . '</span>';
+		if ( $work['canBuy'] ) {
+			$out .= '<input type="hidden" name="quantity" value="1"><button class="pd-pick__btn" type="submit" name="add-to-cart" value="' . (int) $work['id'] . '" aria-label="' . esc_attr( sprintf( /* translators: %s: work title */ __( 'Buy %s', 'pd-blocks' ), $work['title'] ) ) . '" data-wp-bind--aria-busy="state.pending">' . esc_html__( 'Buy', 'pd-blocks' ) . '</button>';
+		} else {
+			$out .= '<a class="pd-pick__btn" href="' . esc_url( $work['url'] ) . '">' . esc_html( 'commission' === $work['format'] ? __( 'Commission', 'pd-blocks' ) : __( 'Sold', 'pd-blocks' ) ) . '</a>';
+		}
+		return $out . '</div></form>';
+	}
 }

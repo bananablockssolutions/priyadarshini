@@ -106,3 +106,83 @@ foreach ( $works as [ $slug, $title, $hi, $maker, $price, $format, $on_order, $m
 	Meta::set( $pid, array( 'artisan' => $ids[ $maker ], 'title_hi' => $hi, 'format' => $format, 'made_on_order' => $on_order, 'material' => $material, 'making_time' => $time ) );
 }
 echo 'Seeded ' . count( $ids ) . ' artisans and ' . count( $works ) . " works.\n";
+
+// Colours and sizes (approved prototype, sketch 3): kurtis, sarees, dupattas and wall art become variable products.
+$attr_ids = array();
+foreach ( array( 'colour' => 'Colour', 'size' => 'Size' ) as $slug => $label ) {
+	$id = wc_attribute_taxonomy_id_by_name( $slug );
+	if ( ! $id ) {
+		$id = wc_create_attribute( array( 'name' => $label, 'slug' => $slug, 'type' => 'select', 'order_by' => 'menu_order' ) );
+	}
+	$attr_ids[ $slug ] = (int) $id;
+	if ( ! taxonomy_exists( 'pa_' . $slug ) ) {
+		register_taxonomy( 'pa_' . $slug, array( 'product', 'product_variation' ), array( 'hierarchical' => false, 'show_ui' => false, 'query_var' => true, 'rewrite' => false ) );
+	}
+}
+$colour_hex = array( 'sindoor' => array( 'Sindoor red', '#C8321F' ), 'neel' => array( 'Neel blue', '#25306B' ), 'haldi' => array( 'Haldi yellow', '#E9A30C' ), 'gulabi' => array( 'Gulabi pink', '#D9467A' ), 'patta' => array( 'Patta green', '#3E7B3A' ), 'kajal' => array( 'Kajal black', '#2A1E17' ), 'kusum' => array( 'Kusum orange', '#E26A1B' ), 'kagaz' => array( 'Kagaz cream', '#E9DCC3' ) );
+foreach ( $colour_hex as $slug => [ $name, $hex ] ) {
+	$t = term_exists( $slug, 'pa_colour' ) ?: wp_insert_term( $name, 'pa_colour', array( 'slug' => $slug ) );
+	update_term_meta( (int) ( is_array( $t ) ? $t['term_id'] : $t ), 'pd_hex', $hex );
+}
+$order = 0;
+foreach ( array( 's' => 'S', 'm' => 'M', 'l' => 'L', 'xl' => 'XL', '5-5m' => '5.5m', '6-3m' => '6.3m', 'free' => 'Free', 'a4' => 'A4', 'a3' => 'A3' ) as $slug => $name ) {
+	$t = term_exists( $slug, 'pa_size' ) ?: wp_insert_term( $name, 'pa_size', array( 'slug' => $slug ) );
+	update_term_meta( (int) ( is_array( $t ) ? $t['term_id'] : $t ), 'order', ++$order );
+}
+$choices = array(
+	'demo-fish-pair-kurti'      => array( array( 'sindoor', 'neel', 'haldi' ), array( 's', 'm', 'l', 'xl' ), 'Featured' ),
+	'demo-lotus-pond-kurti'     => array( array( 'gulabi', 'patta', 'kajal' ), array( 's', 'm', 'l', 'xl' ), 'Made on order' ),
+	'demo-kohbar-kurti'         => array( array( 'kusum', 'neel', 'kagaz' ), array( 's', 'm', 'l', 'xl' ), 'Award winner' ),
+	'demo-tussar-lotus-saree'   => array( array( 'haldi', 'sindoor' ), array( '5-5m', '6-3m' ), 'One of a kind' ),
+	'demo-fish-border-saree'    => array( array( 'neel', 'gulabi', 'kagaz' ), array( '5-5m', '6-3m' ), 'New' ),
+	'demo-sujani-story-dupatta' => array( array( 'patta', 'haldi', 'sindoor' ), array( 'free' ), 'Last piece' ),
+	'demo-fish-and-lotus-pond'  => array( array(), array( 'a4', 'a3' ), 'Award winner' ),
+	'demo-tree-of-life'         => array( array(), array(), 'Made on order' ),
+	'demo-sikki-elephant'       => array( array(), array(), 'New' ),
+);
+foreach ( $choices as $slug => [ $colours, $sizes, $badge ] ) {
+	$post = get_page_by_path( $slug, OBJECT, 'product' );
+	if ( ! $post ) {
+		continue;
+	}
+	update_post_meta( $post->ID, Meta::BADGE, $badge );
+	if ( ! $colours && ! $sizes ) {
+		continue;
+	}
+	wp_set_object_terms( $post->ID, 'variable', 'product_type' );
+	$p     = new WC_Product_Variable( $post->ID );
+	$price = (float) get_post_meta( $post->ID, '_regular_price', true ) ?: 2000;
+	$attrs = array();
+	foreach ( array( 'colour' => $colours, 'size' => $sizes ) as $key => $slugs ) {
+		if ( ! $slugs ) {
+			continue;
+		}
+		$ids = array_map( static fn( $s ) => (int) get_term_by( 'slug', $s, 'pa_' . $key )->term_id, $slugs );
+		wp_set_object_terms( $post->ID, $ids, 'pa_' . $key );
+		$a = new WC_Product_Attribute();
+		$a->set_id( $attr_ids[ $key ] );
+		$a->set_name( 'pa_' . $key );
+		$a->set_options( $ids );
+		$a->set_visible( true );
+		$a->set_variation( true );
+		$attrs[] = $a;
+	}
+	$p->set_attributes( $attrs );
+	$p->save();
+	foreach ( $p->get_children() as $child ) {
+		wp_delete_post( $child, true );
+	}
+	foreach ( $colours ?: array( '' ) as $c ) {
+		foreach ( $sizes ?: array( '' ) as $z ) {
+			$v = new WC_Product_Variation();
+			$v->set_parent_id( $post->ID );
+			$v->set_attributes( array_filter( array( 'pa_colour' => $c, 'pa_size' => $z ) ) );
+			$v->set_regular_price( (string) $price );
+			$v->set_stock_status( 'instock' );
+			$v->save();
+		}
+	}
+	WC_Product_Variable::sync( $post->ID );
+	wc_delete_product_transients( $post->ID );
+}
+echo "Added colours, sizes and badges.\n";

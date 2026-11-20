@@ -32,6 +32,10 @@ final class Menu {
 
 	/** Crafts: WooCommerce product categories, top level, ordered by their menu position. */
 	public static function crafts(): array {
+		static $memo = null;
+		if ( null !== $memo ) {
+			return $memo;
+		}
 		if ( ! taxonomy_exists( 'product_cat' ) || ! class_exists( CraftMeta::class ) ) {
 			return array();
 		}
@@ -54,6 +58,7 @@ final class Menu {
 			}
 		}
 		usort( $out, static fn( $a, $b ) => array( $a['order'], $a['en'] ) <=> array( $b['order'], $b['en'] ) );
+		$memo = $out;
 		return $out;
 	}
 
@@ -139,6 +144,25 @@ final class Menu {
 		foreach ( self::items() as $item ) {
 			if ( $item['id'] === $id ) {
 				return $item;
+			}
+		}
+		return null;
+	}
+
+	/** The product type a work belongs to (its first category that is in the menu), or null. */
+	public static function type_of( int $product_id ): ?array {
+		$terms = get_the_terms( $product_id, 'product_cat' );
+		if ( ! $terms || is_wp_error( $terms ) ) {
+			return null;
+		}
+		$ids = array_column( self::crafts(), 'id' );
+		foreach ( $terms as $t ) {
+			if ( in_array( 'craft-' . $t->term_id, $ids, true ) ) {
+				foreach ( self::crafts() as $item ) {
+					if ( $item['id'] === 'craft-' . $t->term_id ) {
+						return $item;
+					}
+				}
 			}
 		}
 		return null;

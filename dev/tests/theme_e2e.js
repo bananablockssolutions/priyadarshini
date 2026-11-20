@@ -70,7 +70,7 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		await p.waitForURL( '**/product/demo-fish-and-lotus-pond/' );
 		await settle( p );
 		ok( await p.evaluate( () => window.__marker === 1 ), 'work page opened in place' );
-		ok( ( await p.locator( '#pd-main h1' ).textContent() ).includes( 'Fish and Lotus Pond' ), 'work page heading' );
+		ok( ( await p.locator( '#pd-main h1:visible' ).textContent() ).includes( 'Fish and Lotus Pond' ), 'work page heading' );
 		ok( await p.locator( '#pd-main [data-pd-vt="work-' + ( await p.locator( '.pd-buy' ).getAttribute( 'data-wp-context' ).then( ( c ) => JSON.parse( c ).workId ) ) + '"][data-pd-vt-dest]' ).count() === 1, 'gallery plate is the transition destination' );
 
 		await p.goBack();
@@ -95,10 +95,10 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 		ok( ( await p.locator( '.pd-bagc' ).textContent() ).trim() === '0', 'bag starts empty' );
 		await p.evaluate( () => { window.__marker = 1; } );
 		const t0 = Date.now();
-		await p.click( '.pd-buy__add button' );
+		await p.click( '.pd-buy__form button:not([data-pd-buy-now])' );
 		await p.waitForFunction( () => document.querySelector( '.pd-bagc' ).textContent.trim() === '1' );
 		ok( Date.now() - t0 < 300, 'count moves at once (optimistic)', String( Date.now() - t0 ) + ' ms' );
-		await p.waitForFunction( () => document.querySelector( '.pd-buy__add button' ).getAttribute( 'aria-busy' ) === 'false' );
+		await p.waitForFunction( () => document.querySelector( '.pd-buy__form button:not([data-pd-buy-now])' ).getAttribute( 'aria-busy' ) === 'false' );
 		ok( await p.evaluate( () => window.__marker === 1 ), 'Add to bag does not reload the page' );
 		const cart = await p.evaluate( async () => ( await ( await fetch( '/wp-json/wc/store/v1/cart', { credentials: 'same-origin' } ) ).json() ).items_count );
 		ok( cart === 1, 'WooCommerce cart holds the work', String( cart ) );
@@ -132,7 +132,7 @@ const settle = ( p ) => p.waitForFunction( () => ! document.documentElement.clas
 	{
 		const p = await newPage( { javaScriptEnabled: false } );
 		await p.goto( BASE + '/product/demo-village-story-panel/' );
-		await p.click( '.pd-buy__add button' );
+		await p.click( '.pd-buy__form button:not([data-pd-buy-now])' );
 		await p.waitForLoadState( 'load' );
 		ok( ( await p.locator( '.pd-bagc' ).textContent() ).trim() === '1', 'no-JS Add to bag posts to WooCommerce and the count shows 1' );
 		ok( await p.locator( '.pd-shell__nav a' ).count() === 2, 'no-JS navigation is plain links' );

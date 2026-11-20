@@ -128,6 +128,7 @@ $tabs = array(
 		</form>
 		<?php endif; ?>
 	</div>
+	<div class="pd-toast" aria-hidden="true" data-wp-interactive="pd/bag" data-wp-class--is-on="state.toastOn" data-wp-text="state.toast"></div>
 	<div class="screen-reader-text" role="status" aria-live="polite" aria-atomic="true" data-wp-interactive="pd/navigation" data-wp-text="state.polite"></div>
 	<div class="screen-reader-text" role="alert" aria-atomic="true" data-wp-interactive="pd/navigation" data-wp-text="state.assertive"></div>
 	<?php if ( 'full' === $mode ) : ?>

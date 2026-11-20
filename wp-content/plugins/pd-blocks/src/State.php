@@ -81,17 +81,22 @@ final class State {
 	private static function navigation(): array {
 		$url      = home_url( add_query_arg( array() ) );
 		$excluded = array( wp_parse_url( admin_url(), PHP_URL_PATH ), wp_parse_url( wp_login_url(), PHP_URL_PATH ), '/wp-json/', '/feed/' );
+		$narrow   = array(); // routed on phones only (pd/cart); wide screens keep WooCommerce's own Cart block, which needs a full load
 		if ( function_exists( 'wc_get_page_permalink' ) ) {
 			foreach ( array( 'cart', 'checkout', 'myaccount' ) as $page ) {
 				$path = wp_parse_url( wc_get_page_permalink( $page ), PHP_URL_PATH );
 				if ( $path && '/' !== $path ) {
 					$excluded[] = $path;
+					if ( 'cart' === $page ) {
+						$narrow[] = $path;
+					}
 				}
 			}
 		}
 		return array(
 			'url'            => $url,
 			'excluded'       => array_values( array_unique( array_filter( $excluded ) ) ),
+			'narrowRoutable' => $narrow,
 			'progressVisible' => false,
 			'polite'         => '',
 			'assertive'      => '',
@@ -153,6 +158,8 @@ final class State {
 			'_nonce'     => wp_create_nonce( 'wc_store_api' ),
 			'pending'    => false,
 			'bump'       => false,
+			'toast'      => '',
+			'toastOn'    => false,
 			'countLabel' => static function (): string {
 				$n = (int) ( wp_interactivity_state( 'pd/bag' )['count'] ?? 0 );
 				return 1 === $n ? 'Bag, 1 work' : "Bag, {$n} works";

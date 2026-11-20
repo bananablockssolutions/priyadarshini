@@ -59,12 +59,14 @@ final class Route {
 	/** Pages that need a full load (WooCommerce cart, checkout and account scripts; variable products) are not swapped in place. */
 	public static function routable(): bool {
 		$ok = true;
-		if ( function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() ) ) {
+		// The cart is routable for phones (pd/cart); the client keeps wide screens on full loads (state.narrowRoutable).
+		if ( function_exists( 'is_cart' ) && ( is_checkout() || is_account_page() ) ) {
 			$ok = false;
 		}
+		// Variable works use our own colour and size form (Components::pick_form), not WooCommerce's variation script.
 		if ( $ok && is_singular( 'product' ) && function_exists( 'wc_get_product' ) ) {
 			$p  = wc_get_product( get_queried_object_id() );
-			$ok = $p && in_array( $p->get_type(), array( 'simple', 'external' ), true );
+			$ok = $p && in_array( $p->get_type(), array( 'simple', 'external', 'variable' ), true );
 		}
 		return (bool) apply_filters( 'pd_routable', $ok );
 	}

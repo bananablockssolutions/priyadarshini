@@ -58,6 +58,36 @@ const { state } = store( 'pd/catalogue', {
 			}
 			state.sheetOpen = false;
 		},
+		/** A colour or size picked on a card travels with its links, so the work page opens with the same picks. */
+		pick( event ) {
+			const form = event.target.form || event.target.closest( 'form' );
+			const scope = form?.closest( '[data-pd-shared]' );
+			if ( ! form || ! scope ) {
+				return;
+			}
+			const data = new FormData( form );
+			const links = scope.matches( '.pd-wpage' ) ? [] : scope.querySelectorAll( 'a[href]:not(.pd-pick__btn)' );
+			links.forEach( ( a ) => {
+				const u = new URL( a.href, window.location.href );
+				[ ...u.searchParams.keys() ].filter( ( k ) => k.startsWith( 'attribute_' ) ).forEach( ( k ) => u.searchParams.delete( k ) );
+				for ( const [ k, v ] of data.entries() ) {
+					if ( k.startsWith( 'attribute_' ) ) {
+						u.searchParams.set( k, String( v ) );
+					}
+				}
+				a.href = u.href;
+			} );
+			if ( scope.matches( '.pd-wpage' ) ) {
+				// keep the address in step on the work page, so a reload or a shared link shows the same piece
+				const u = new URL( window.location.href );
+				for ( const [ k, v ] of data.entries() ) {
+					if ( k.startsWith( 'attribute_' ) ) {
+						u.searchParams.set( k, String( v ) );
+					}
+				}
+				history.replaceState( history.state, '', u.href );
+			}
+		},
 		sheetKey( event ) {
 			if ( event.key === 'Escape' ) {
 				state.sheetOpen = false;
